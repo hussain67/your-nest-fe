@@ -1,0 +1,11 @@
+.nav {
+	display: flex;
+	justify-content: space-around;
+	&-section {
+		background-color: azure;
+		padding: 20px;
+	}
+}
+.nav a.active {
+	color: red;
+}
