@@ -6,6 +6,7 @@
 	--background-color: #f1f5f8;
 	--primary-color: hsl(185, 62%, 45%);
 	--primary-color-light: hsl(185, 55%, 76%);
+	--sm: 768px;
 }
 
 // Global styles
@@ -20,6 +21,7 @@
 body {
 	font-family: "Open Sans", sans-serif;
 	line-height: 1.5;
+	background-color: var(--background-color);
 }
 img {
 	width: 100%;
@@ -43,5 +45,19 @@ p {
 	padding: 15px 20px;
 	width: 90vw;
 	max-width: 1170px;
-	background-color: rgb(86, 167, 241);
+}
+.btn {
+	cursor: pointer;
+	border: 1.5px solid var(--primary-color);
+	letter-spacing: 1.5px;
+	padding: 8px;
+	background-color: var(--primary-color);
+	border-radius: 5px;
+	color: #fff;
+	transition: all 0.5s;
+
+	&:hover {
+		background-color: var(--primary-color-light);
+		color: black;
+	}
 }

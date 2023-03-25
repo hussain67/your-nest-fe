@@ -2,9 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import MainNav from "./components/nav/MainNav";
 import { AuthProvider } from "./context/authContext";
+import AccountActivate from "./pages/auth/activate/AccountActivate";
+import LoginRegister from "./pages/auth/login-register/LoginRegister";
 import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
-import Register from "./pages/register/Register";
 
 function App() {
 	return (
@@ -17,12 +17,13 @@ function App() {
 						element={<Home />}
 					/>
 					<Route
-						path="/login"
-						element={<Login />}
+						path="/account/login-register"
+						element={<LoginRegister />}
 					/>
+
 					<Route
-						path="/register"
-						element={<Register />}
+						path="/auth/account-activate/:token"
+						element={<AccountActivate />}
 					/>
 				</Routes>
 			</AuthProvider>

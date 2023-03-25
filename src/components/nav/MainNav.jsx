@@ -4,26 +4,22 @@ import "./nav.scss";
 
 const MainNav = () => {
 	return (
-		<nav className="nav">
-			<NavLink
-				to="/"
-				data-cy="mainnav-home-link"
-			>
-				Home
-			</NavLink>
-			<NavLink
-				to="/login"
-				data-cy="mainnav-login-link"
-			>
-				Login
-			</NavLink>
-			<NavLink
-				to="/register"
-				data-cy="mainnav-register-link"
-			>
-				Register
-			</NavLink>
-		</nav>
+		<section className="nav-section">
+			<nav className="nav">
+				<NavLink
+					to="/"
+					data-cy="mainnav-home-link"
+				>
+					Home
+				</NavLink>
+				<NavLink
+					to="/account/login-register"
+					data-cy="mainnav-login-link"
+				>
+					Login/register
+				</NavLink>
+			</nav>
+		</section>
 	);
 };
 

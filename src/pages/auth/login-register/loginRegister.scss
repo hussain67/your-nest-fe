@@ -1,0 +1,77 @@
+.login-register {
+	height: calc(100vh - 104px);
+	display: grid;
+	place-content: center;
+
+	&-form {
+		width: 360px;
+		border-radius: 5px;
+		border: 0.2px solid grey;
+		box-shadow: 3px 3px 7px grey;
+
+		padding: 0 15px 15px;
+		background-color: #fff;
+		@media (min-width: 768px) {
+			padding: 30px;
+			width: 650px;
+		}
+		input {
+			height: 35px;
+			margin-bottom: 15px;
+		}
+	}
+	&-footer {
+		.toggle-register {
+			margin-bottom: 15px;
+			span {
+				cursor: pointer;
+				color: blue;
+			}
+		}
+		@media (min-width: 768px) {
+			margin-left: 150px;
+		}
+	}
+}
+.container-btn-submit {
+	margin-bottom: 15px;
+}
+.container-btn-set {
+	width: 360px;
+	@media (min-width: 768px) {
+	}
+}
+.btn-submit {
+	width: 100%;
+	background-color: rgb(85, 85, 196);
+	&:hover {
+		background-color: rgb(117, 117, 203);
+		color: #fff;
+	}
+	@media (min-width: 768px) {
+		margin-left: 150px;
+		max-width: 440px;
+	}
+}
+.btn-info {
+	margin-left: 12px;
+	margin-bottom: 15px;
+	padding: 8px 10px;
+}
+.btn-google {
+	width: 365px;
+	background-color: rgb(194, 67, 67);
+	border: 1.5px solid rgb(194, 67, 67);
+	&:hover {
+		background-color: rgb(180, 113, 113);
+		color: white;
+	}
+	@media (min-width: 768px) {
+		width: 100%;
+	}
+}
+.auth-error {
+	text-align: center;
+	color: red;
+	margin-bottom: 15px;
+}
