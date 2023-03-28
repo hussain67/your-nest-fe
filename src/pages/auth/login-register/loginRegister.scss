@@ -58,20 +58,21 @@
 	margin-bottom: 15px;
 	padding: 8px 10px;
 }
-.btn-google {
-	width: 365px;
-	background-color: rgb(194, 67, 67);
-	border: 1.5px solid rgb(194, 67, 67);
-	&:hover {
-		background-color: rgb(180, 113, 113);
-		color: white;
-	}
-	@media (min-width: 768px) {
-		width: 100%;
-	}
-}
+
 .auth-error {
 	text-align: center;
 	color: red;
 	margin-bottom: 15px;
+}
+.email-info {
+	display: grid;
+	height: calc(100vh - 104px);
+	place-content: center;
+
+	&-text {
+		background-color: rgb(130, 182, 130);
+		border-radius: 5px;
+		color: #fff;
+		padding: 10px;
+	}
 }

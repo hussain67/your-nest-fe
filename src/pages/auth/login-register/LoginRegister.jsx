@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FormInput from "./FormInput";
 import validator from "validator";
 import "./loginRegister.scss";
-
+import { preRegister } from "../../../utils/api/authApi";
 import { Link, useNavigate } from "react-router-dom";
 
 const LoginRegister = () => {
@@ -19,6 +19,8 @@ const LoginRegister = () => {
 	const [isRegistered, setIsRegistered] = useState(true);
 	const [input, setInput] = useState(initialInput);
 	const [errors, setErrors] = useState({});
+	const [loading, setLoading] = useState(false);
+	const [emailInfo, setEmailInfo] = useState("");
 	const { name, email, password, confirmPassword } = input;
 
 	const handleChange = e => {
@@ -61,11 +63,32 @@ const LoginRegister = () => {
 		return Object.keys(errors).length === 0;
 	};
 
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault();
-		isFormValid(isRegistered);
+		if (!isRegistered) {
+			if (!isFormValid(!isRegistered)) return;
+			setLoading(true);
+			try {
+				const { status } = await preRegister(name, email, password);
+				console.log(status);
+				if (status === "OK") {
+					setEmailInfo("Please check your email to verify your account");
+				}
+			} catch (error) {}
+			setLoading(false);
+		}
+		if (isRegistered) {
+			isFormValid(isRegistered);
+		}
 	};
 
+	if (emailInfo) {
+		return (
+			<p className="email-info">
+				<span className="email-info-text">{emailInfo}</span>{" "}
+			</p>
+		);
+	}
 	return (
 		<section className="login-register">
 			<article className="login-register-form">
@@ -112,8 +135,10 @@ const LoginRegister = () => {
 						<button
 							className="btn btn-submit"
 							type="submit"
+							disabled={loading}
+							data-cy="login-signup-btn"
 						>
-							{isRegistered ? "LOG IN" : "SIGN UP"}
+							{loading ? "Waiting..." : isRegistered ? "LOG IN" : "SIGN UP"}
 						</button>
 					</div>
 				</form>
