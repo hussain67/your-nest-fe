@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { defineConfig } = require("cypress");
+//const { preRegister } = require("./src/utils/api/authApi");
 
 module.exports = defineConfig({
 	component: {
@@ -14,8 +15,9 @@ module.exports = defineConfig({
 		setupNodeEvents(on, config) {
 			// implement node event listeners here
 			on("task", {
-				async seedDatabase() {
-					axios.post("http://localhost:8000/api/v1/auth/seed");
+				async setupDB() {
+					const result = await axios.post("http://localhost:8000/api/v1/auth/seed");
+					console.log(result.data);
 					return null;
 				}
 			});

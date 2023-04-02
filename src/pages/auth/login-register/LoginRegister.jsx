@@ -70,10 +70,11 @@ const LoginRegister = () => {
 			setLoading(true);
 			try {
 				const { status } = await preRegister(name, email, password);
-				console.log(status);
-				if (status === "OK") {
+
+				if (status === "Success") {
 					setEmailInfo("Please check your email to verify your account");
 				}
+				setInput(initialInput);
 			} catch (error) {}
 			setLoading(false);
 		}
