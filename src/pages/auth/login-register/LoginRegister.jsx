@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import FormInput from "./FormInput";
 import validator from "validator";
 import "./loginRegister.scss";
-import { preRegister } from "../../../utils/api/authApi";
+import { preRegister, logIn } from "../../../utils/api/authApi";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../../context/authContext";
 
 const LoginRegister = () => {
+	const { setAuth } = useAuthContext();
+
 	const navigate = useNavigate();
 	const navigateToHomePage = () => {
 		navigate("/");
@@ -65,6 +68,8 @@ const LoginRegister = () => {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+
+		//Registration
 		if (!isRegistered) {
 			if (!isFormValid(!isRegistered)) return;
 			setLoading(true);
@@ -78,8 +83,22 @@ const LoginRegister = () => {
 			} catch (error) {}
 			setLoading(false);
 		}
+		//Login
 		if (isRegistered) {
-			isFormValid(isRegistered);
+			if (!isFormValid(isRegistered)) return;
+			setLoading(true);
+			try {
+				const data = await logIn(email, password);
+				console.log(data);
+				if (!data.error) {
+					setAuth(data);
+					localStorage.setItem("jwt", JSON.stringify(data));
+					navigateToHomePage();
+				}
+			} catch (error) {
+				setLoading(false);
+			}
+			setLoading(false);
 		}
 	};
 

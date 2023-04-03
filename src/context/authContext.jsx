@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
 		const data = localStorage.getItem("auth");
 		setAuth(JSON.parse(data));
 	}, []);
-	console.log(auth);
+	//console.log(auth);
 	const value = { auth, setAuth };
 	return <authContext.Provider value={value}>{children}</authContext.Provider>;
 };

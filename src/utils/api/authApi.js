@@ -6,7 +6,7 @@ axios.defaults.baseURL = "http://localhost:8000/api/v1";
 export const preRegister = async (name, email, password) => {
 	try {
 		const { data } = await axios.post("/auth/pre-register", { name, email, password });
-		console.log(data);
+		//console.log(data);
 		if (data.error) {
 			toast.error(data.error);
 		}
@@ -18,7 +18,23 @@ export const preRegister = async (name, email, password) => {
 
 export const register = async token => {
 	try {
-		const response = await axios.post(`/auth/register`, { token });
-		return response.data;
+		const { data } = await axios.post(`/auth/register`, { token });
+		if (data?.error) {
+			toast.error(data.error);
+		}
+		toast.success(`Welcome ${data.user.name}`);
+		return data;
+	} catch (error) {}
+};
+
+export const logIn = async (email, password) => {
+	try {
+		const { data } = await axios.post(`/auth/login`, { email, password });
+		if (data.error) {
+			toast.error(data.error);
+			return data;
+		}
+		toast.success(`Welcome ${data.user.name}`);
+		return data;
 	} catch (error) {}
 };

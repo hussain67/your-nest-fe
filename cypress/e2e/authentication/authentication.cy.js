@@ -25,12 +25,12 @@ describe("Authentication", () => {
 		cy.intercept("POST", "http://localhost:8000/api/v1/auth/pre-register*", { delay: 1000, body: { status: "Success" } }).as("preRegister");
 
 		cy.visit("/account/login-register");
-		let name = "shahid";
+
 		//Fill required form fields
 		cy.get('[data-cy="login-register-span"]').click();
 		cy.get('[data-cy="login-signup-btn"]').as("signupBtn");
 		cy.get("@signupBtn").should("have.text", "SIGN UP");
-		cy.get("#name").type(name);
+		cy.get("#name").type("shahid");
 		cy.get("#email").type("hussain.msh67@yahoo.com");
 		cy.get("#password").type("123abc");
 		cy.get("#confirmPassword").type("123abc");
