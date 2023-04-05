@@ -63,15 +63,6 @@ describe("Authentication", () => {
 		}).as("register");
 
 		cy.visit("/auth/account-activate/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDI3NmJhMGEzOGUzM2E4N2ExNzA1MTEiLCJpYXQiOjE2ODAzMDUwNTYsImV4cCI6MTY4MDMwODY1Nn0.0fHqCVkm5TGSJMP0aQByzhwFb8qGBv9_Hc-9Hx8Ni94");
-		cy.location("pathname").should("eq", "/account/login-register");
-	});
-});
-
-describe("Auth", () => {
-	beforeEach(() => {
-		cy.task("seedDatabase");
-	});
-	it("connect", () => {
-		cy.visit("/");
+		cy.location("pathname").should("eq", "/");
 	});
 });

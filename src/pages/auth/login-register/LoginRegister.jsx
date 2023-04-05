@@ -92,7 +92,7 @@ const LoginRegister = () => {
 				console.log(data);
 				if (!data.error) {
 					setAuth(data);
-					localStorage.setItem("jwt", JSON.stringify(data));
+					localStorage.setItem("auth", JSON.stringify(data));
 					navigateToHomePage();
 				}
 			} catch (error) {

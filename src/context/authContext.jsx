@@ -9,9 +9,12 @@ const AuthProvider = ({ children }) => {
 		token: "",
 		refreshToken: ""
 	});
+	console.log(auth);
 	useEffect(() => {
 		const data = localStorage.getItem("auth");
-		setAuth(JSON.parse(data));
+		if (data) {
+			setAuth(JSON.parse(data));
+		}
 	}, []);
 	//console.log(auth);
 	const value = { auth, setAuth };

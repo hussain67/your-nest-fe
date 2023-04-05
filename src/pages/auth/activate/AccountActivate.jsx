@@ -19,8 +19,8 @@ const AccountActivate = () => {
 			}
 		};
 		callregister();
-		navigate("/account/login-register");
-	}, [token, setAuth]);
+		navigate("/");
+	}, [token, setAuth, navigate]);
 
 	return (
 		<div className="account-activate">

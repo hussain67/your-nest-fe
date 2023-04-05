@@ -9,7 +9,11 @@ module.exports = defineConfig({
 			bundler: "webpack"
 		}
 	},
-
+	env: {
+		name: "shahid",
+		email: "hussain.msh67@yahoo.com",
+		password: "123123"
+	},
 	e2e: {
 		baseUrl: "http://localhost:3000",
 		setupNodeEvents(on, config) {

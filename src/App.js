@@ -40,6 +40,7 @@ function App() {
 				draggable
 				pauseOnHover
 				theme="dark"
+				data-cy="toast-modal"
 			/>
 		</BrowserRouter>
 	);
