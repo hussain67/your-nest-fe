@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FormInput from "./FormInput";
+import FormInput from "../component-form-input/FormInput";
 import validator from "validator";
 import "./loginRegister.scss";
 import { preRegister, logIn } from "../../../utils/api/authApi";
@@ -179,7 +179,7 @@ const LoginRegister = () => {
 					{isRegistered && (
 						<p>
 							Forgot your password?
-							<Link to="./forgot-password"> Reset Password</Link>
+							<Link to="/auth/forgot-password"> Reset Password</Link>
 						</p>
 					)}
 				</div>

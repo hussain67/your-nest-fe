@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
 		token: "",
 		refreshToken: ""
 	});
-	console.log(auth);
+	console.log(auth, "AUTH");
 	useEffect(() => {
 		const data = localStorage.getItem("auth");
 		if (data) {

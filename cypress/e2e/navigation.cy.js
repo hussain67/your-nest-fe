@@ -1,7 +1,10 @@
 /* eslint-disable no-undef */
 /// <reference types="Cypress" />
 
-describe.only("page navigation", () => {
+describe("page navigation", () => {
+	beforeEach(() => {
+		cy.task("setupDb");
+	});
 	it("should navigate pages", () => {
 		cy.visit("/");
 		cy.get('[data-cy = "mainnav-login-link"]').click();
@@ -9,11 +12,8 @@ describe.only("page navigation", () => {
 		cy.go("back");
 		cy.location("pathname").should("eq", "/");
 	});
-	beforeEach(() => {
-		cy.task("setupDB");
-	});
 	it.only("should change text from login to logout", () => {
-		cy.visit("/account/login-register");
+		//cy.visit("/account/login-register");
 		cy.login();
 	});
 });

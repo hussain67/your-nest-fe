@@ -4,7 +4,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import MainNav from "./components/nav/MainNav";
 import { AuthProvider } from "./context/authContext";
+import AccessAccount from "./pages/auth/access/AccessAccount";
 import AccountActivate from "./pages/auth/activate/AccountActivate";
+import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
 import LoginRegister from "./pages/auth/login-register/LoginRegister";
 import Home from "./pages/home/Home";
 
@@ -26,6 +28,14 @@ function App() {
 					<Route
 						path="/auth/account-activate/:token"
 						element={<AccountActivate />}
+					/>
+					<Route
+						path="/auth/forgot-password"
+						element={<ForgotPassword />}
+					/>
+					<Route
+						path="/auth/access-account/:token"
+						element={<AccessAccount />}
 					/>
 				</Routes>
 			</AuthProvider>

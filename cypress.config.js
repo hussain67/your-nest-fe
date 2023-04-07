@@ -19,8 +19,8 @@ module.exports = defineConfig({
 		setupNodeEvents(on, config) {
 			// implement node event listeners here
 			on("task", {
-				async setupDB() {
-					const result = await axios.post("http://localhost:8000/api/v1/auth/seed");
+				async setupDb() {
+					const result = await axios.post("http://localhost:8000/api/v1/auth/setupDb", { name: "hussain", email: "hussain.msh67@gmail.com", password: "123123" });
 					console.log(result.data);
 					return null;
 				}

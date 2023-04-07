@@ -3,7 +3,6 @@
 /* eslint-disable no-undef */
 describe("Authentication", () => {
 	it("display login and registration form properly", () => {
-		// eslint-disable-next-line no-undef
 		cy.visit("/account/login-register");
 
 		// Log in for should appear at the start

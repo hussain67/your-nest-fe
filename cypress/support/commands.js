@@ -15,28 +15,21 @@
 
 // eslint-disable-next-line no-undef
 Cypress.Commands.add("login", () => {
-	cy.task("setupDB");
-	cy.request("POST", "http://localhost:8000/api/v1/auth/pre-register", { name: Cypress.env("name"), email: Cypress.env("email"), password: Cypress.env("password"), type: "test" })
-		.its("body")
-		.then(response => {
-			const authToken = response.token;
-			if (authToken) {
-				cy.visit(`/auth/account-activate/${authToken}`);
-			}
-		});
+	cy.task("setupDb");
 
-	//Now at home page
-	cy.wait(1000);
-	cy.contains("Log out").click();
-
+	cy.request("POST", "http://localhost:8000/api/v1/auth/login", { email: "hussain.msh67@gmail.com", password: "123123" }).then(resp => {
+		localStorage.setItem("auth", JSON.stringify(resp.body));
+	});
+	// cy.visit("/account/login-register");
 	// try to log in with wrong password
-	cy.contains("Login/Register").click();
+	// cy.contains("Login/Register").click();
 
 	//Fill required form fields
-	cy.get("#email").click();
-	cy.get("#email").type("hussain.msh67@yahoo.com");
-	cy.get("#password").type("123123");
-	cy.get('[data-cy="login-signup-btn"]').click();
+	// cy.get("#email").click();
+	// cy.get("#email").type("hussain.msh67@gmail.com");
+	// cy.get("#password").type("123123");
+	// cy.get('[data-cy="login-signup-btn"]').click();
+	// cy.contains("Log out");
 });
 
 // -- This is a child command --
