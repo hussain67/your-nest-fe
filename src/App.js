@@ -3,12 +3,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import MainNav from "./components/nav/MainNav";
+import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthProvider } from "./context/authContext";
 import AccessAccount from "./pages/auth/access/AccessAccount";
 import AccountActivate from "./pages/auth/activate/AccountActivate";
 import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
 import LoginRegister from "./pages/auth/login-register/LoginRegister";
 import Home from "./pages/home/Home";
+import AdCreate from "./pages/user/ad/AdCreate";
+import Dashboard from "./pages/user/dashboard/Dashboard";
 
 function App() {
 	return (
@@ -16,10 +19,10 @@ function App() {
 			<AuthProvider>
 				<MainNav />
 				<Routes>
-					<Route
+					{/* <Route
 						path="/"
 						element={<Home />}
-					/>
+					/> */}
 					<Route
 						path="/account/login-register"
 						element={<LoginRegister />}
@@ -37,6 +40,19 @@ function App() {
 						path="/auth/access-account/:token"
 						element={<AccessAccount />}
 					/>
+					<Route
+						path="/"
+						element={<PrivateRoute />}
+					>
+						<Route
+							path="dashboard"
+							element={<Dashboard />}
+						/>
+						<Route
+							path="ad/create"
+							element={<AdCreate />}
+						/>
+					</Route>
 				</Routes>
 			</AuthProvider>
 			<ToastContainer

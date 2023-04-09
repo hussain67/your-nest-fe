@@ -39,6 +39,21 @@ export const logIn = async (email, password) => {
 	} catch (error) {}
 };
 
+export const getCurrentUser = async token => {
+	try {
+		const { data } = await axios.get("/auth/current-user", {
+			headers: {
+				Authorization: token
+			}
+		});
+		if (data.error) {
+			toast.error(data.error);
+		}
+		toast.success("Now you have acces to personal field");
+		return data;
+	} catch (err) {}
+};
+
 export const forgotPassword = async email => {
 	try {
 		const { data } = await axios.post("/auth/forgot-password", { email });

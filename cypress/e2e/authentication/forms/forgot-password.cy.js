@@ -6,6 +6,7 @@ describe("forgotPassword", () => {
 		cy.visit("http://localhost:3000/auth/forgot-password");
 		cy.get('[data-cy="login-signup-btn"]').as("submitBtn");
 	});
+
 	it("verify email input field works properly ", () => {
 		// Input fild work properly
 		cy.get("#email").type("test@yahoo.com").should("have.value", "test@yahoo.com");
