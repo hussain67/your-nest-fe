@@ -49,7 +49,7 @@ export const getCurrentUser = async token => {
 		if (data.error) {
 			toast.error(data.error);
 		}
-		toast.success("Now you have acces to personal field");
+		//toast.success("Now you have acces to personal field");
 		return data;
 	} catch (err) {}
 };

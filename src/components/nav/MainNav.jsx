@@ -9,6 +9,14 @@ const MainNav = () => {
 
 	const loggedIn = auth?.user !== null;
 
+	const handlePostAdClick = () => {
+		if (loggedIn) {
+			navigate("/ad/create");
+		} else {
+			navigate("/account/login-register");
+		}
+	};
+
 	const logout = () => {
 		setAuth({
 			user: null,
@@ -27,6 +35,7 @@ const MainNav = () => {
 				>
 					Home
 				</NavLink>
+				<div onClick={handlePostAdClick}>Post Ad</div>
 				{loggedIn ? (
 					<Link>
 						<span onClick={logout}> Log out</span>
