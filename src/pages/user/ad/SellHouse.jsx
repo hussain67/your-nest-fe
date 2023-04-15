@@ -1,16 +1,19 @@
 import React from "react";
 import AdForm from "../../../components/forms/AdForm";
+import "./ad.scss";
 
 const SellHouse = () => {
 	return (
-		<div>
+		<main className="ad-main">
+			<h1>Sell House</h1>
+
 			{
 				<AdForm
 					action={"sell"}
 					type={"house"}
 				/>
 			}
-		</div>
+		</main>
 	);
 };
 

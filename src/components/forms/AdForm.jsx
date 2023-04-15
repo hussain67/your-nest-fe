@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../../context/authContext";
 import CurrencyInput from "react-currency-input-field";
+import ImageUpload from "./ImageUpload";
+import "./adForm.scss";
 
 const AdForm = ({ action, type }) => {
 	const { auth, setAuth } = useAuthContext();
@@ -21,11 +23,11 @@ const AdForm = ({ action, type }) => {
 	};
 
 	const [ad, setAd] = useState(initialState);
-	console.log(ad.address);
+	console.log(ad);
 	return (
-		<section>
-			<div>
-				<input
+		<form className="ad-form">
+			<div className="form-control">
+				<textarea
 					type="text"
 					placeholder="Enter address"
 					value={ad.address}
@@ -33,7 +35,7 @@ const AdForm = ({ action, type }) => {
 					onChange={e => setAd({ ...ad, address: e.target.value })}
 				/>
 			</div>
-			<div>
+			<div className="form-control">
 				<CurrencyInput
 					placeholder="Enter price"
 					defaultValue={ad.price}
@@ -41,7 +43,7 @@ const AdForm = ({ action, type }) => {
 					onValueChange={value => setAd({ ...ad, price: value })}
 				/>
 			</div>
-			<div>
+			<div className="form-control">
 				<input
 					type="number"
 					min="0"
@@ -50,7 +52,7 @@ const AdForm = ({ action, type }) => {
 					onChange={e => setAd({ ...ad, bedrooms: e.target.value })}
 				/>
 			</div>
-			<div>
+			<div className="form-control">
 				<input
 					type="number"
 					min="0"
@@ -59,7 +61,7 @@ const AdForm = ({ action, type }) => {
 					onChange={e => setAd({ ...ad, bathrooms: e.target.value })}
 				/>
 			</div>
-			<div>
+			<div className="form-control">
 				<input
 					type="number"
 					min="0"
@@ -68,7 +70,7 @@ const AdForm = ({ action, type }) => {
 					onChange={e => setAd({ ...ad, carparks: e.target.value })}
 				/>
 			</div>
-			<div>
+			<div className="form-control">
 				<input
 					type="text"
 					placeholder="Size of land"
@@ -76,7 +78,7 @@ const AdForm = ({ action, type }) => {
 					onChange={e => setAd({ ...ad, landsize: e.target.value })}
 				/>
 			</div>
-			<div>
+			<div className="form-control">
 				<input
 					type="text"
 					placeholder="Enter Title"
@@ -84,7 +86,7 @@ const AdForm = ({ action, type }) => {
 					onChange={e => setAd({ ...ad, title: e.target.value })}
 				/>
 			</div>
-			<div>
+			<div className="form-control">
 				<textarea
 					type="text"
 					placeholder="Enter Description"
@@ -92,8 +94,22 @@ const AdForm = ({ action, type }) => {
 					onChange={e => setAd({ ...ad, descreption: e.target.value })}
 				/>
 			</div>
-			<button>Submit</button>
-		</section>
+			<div className="form-control">
+				<ImageUpload
+					ad={ad}
+					setAd={setAd}
+				/>
+			</div>
+
+			<button
+				className="btn btn-add-form"
+				type="submit"
+				disabled={ad.loading}
+				data-cy="sell-rent-btn"
+			>
+				Submit
+			</button>
+		</form>
 	);
 };
 

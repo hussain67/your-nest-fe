@@ -1,8 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-axios.defaults.baseURL = "http://localhost:8000/api/v1";
-
 export const preRegister = async (name, email, password) => {
 	try {
 		const { data } = await axios.post("/auth/pre-register", { name, email, password });
@@ -42,9 +40,9 @@ export const logIn = async (email, password) => {
 export const getCurrentUser = async token => {
 	try {
 		const { data } = await axios.get("/auth/current-user", {
-			headers: {
-				Authorization: token
-			}
+			// headers: {
+			// 	Authorization: token
+			// }
 		});
 		if (data.error) {
 			toast.error(data.error);
