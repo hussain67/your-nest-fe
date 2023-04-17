@@ -6,7 +6,7 @@ describe("Authentication - Login", () => {
 		cy.task("setupDb");
 	});
 
-	it.only("Log in a registered user", () => {
+	it("Log in a registered user", () => {
 		// First register a user
 		cy.request("POST", "http://localhost:8000/api/v1/auth/pre-register", { name: Cypress.env("name"), email: Cypress.env("email"), password: Cypress.env("password"), type: "test" })
 			.its("body")

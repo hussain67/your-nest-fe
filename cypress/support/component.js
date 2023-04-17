@@ -18,6 +18,9 @@
 import "./commands";
 
 import "../../src/index.scss";
+import "../../src/components/forms/adForm.scss";
+import { useAuthContext } from "../../src/context/authContext";
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 

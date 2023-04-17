@@ -10,7 +10,7 @@ const SellHouse = () => {
 			{
 				<AdForm
 					action={"sell"}
-					type={"house"}
+					type="House"
 				/>
 			}
 		</main>

@@ -26,8 +26,18 @@ const AdCreate = () => {
 				</button>
 				{sell && (
 					<div className="btn-container">
-						<button onClick={() => navigate("/ad/create/sell/house")}>House</button>
-						<button onClick={() => navigate("/ad/create/sell/land")}>Land</button>
+						<button
+							data-cy="btn-sell-house"
+							onClick={() => navigate("/ad/create/sell/house")}
+						>
+							House
+						</button>
+						<button
+							data-cy="btn-sell-land"
+							onClick={() => navigate("/ad/create/sell/land")}
+						>
+							Land
+						</button>
 					</div>
 				)}
 			</article>
@@ -40,8 +50,18 @@ const AdCreate = () => {
 				</button>
 				{rent && (
 					<div className="btn-container">
-						<button onClick={() => navigate("/ad/create/rent/house")}>House</button>
-						<button onClick={() => navigate("/ad/create/rent/land")}>Land</button>
+						<button
+							data-cy="btn-rent-house"
+							onClick={() => navigate("/ad/create/rent/house")}
+						>
+							House
+						</button>
+						<button
+							data-cy="btn-rent-land"
+							onClick={() => navigate("/ad/create/rent/land")}
+						>
+							Land
+						</button>
 					</div>
 				)}
 			</article>
