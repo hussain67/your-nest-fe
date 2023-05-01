@@ -9,10 +9,13 @@
 		"antd": "^5.4.2",
 		"axios": "^1.3.4",
 		"cypress": "^12.9.0",
+		"dotenv": "^16.0.3",
 		"mongoose": "^7.0.3",
 		"react": "^18.2.0",
 		"react-currency-input-field": "^3.6.10",
 		"react-dom": "^18.2.0",
+		"react-google-autocomplete": "^2.7.3",
+		"react-google-places-autocomplete": "^4.0.1",
 		"react-image-file-resizer": "^0.4.8",
 		"react-router-dom": "^6.9.0",
 		"react-scripts": "5.0.1",
@@ -44,5 +47,8 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"devDependencies": {
+		"jest": "^27.5.1"
 	}
 }

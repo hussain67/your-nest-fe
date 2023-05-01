@@ -14,7 +14,6 @@ const PrivateRoute = () => {
 			if (resp) {
 				setStatus(true);
 			}
-			console.log(resp);
 		} catch (error) {
 			setStatus(false);
 		}

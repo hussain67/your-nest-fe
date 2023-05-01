@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { useAuthContext } from "../../context/authContext";
+
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+//import { useAuthContext } from "../../context/authContext";
 import CurrencyInput from "react-currency-input-field";
 import ImageUpload from "./ImageUpload";
 import "./adForm.scss";
+import { createAd } from "../../utils/api/adApi";
 
 const AdForm = ({ action, type }) => {
 	//const { auth, setAuth } = useAuthContext();
@@ -16,31 +19,114 @@ const AdForm = ({ action, type }) => {
 		carparks: "",
 		landsize: "",
 		title: "",
-		descreption: "",
+		description: "",
 		loading: false,
 		type,
 		action
 	};
 
 	const [ad, setAd] = useState(initialState);
-	console.log(ad);
+	const [errors, setErrors] = useState({});
+	const [errorMsg, setErrorMsg] = useState(false);
+
+	const isFormValid = () => {
+		const errors = {};
+		if (ad.address === "") {
+			errors.address = true;
+		}
+		if (ad.price === "") {
+			errors.price = true;
+		}
+		if (ad.bedrooms === "") {
+			errors.bedrooms = true;
+		}
+		if (ad.bathrooms === "") {
+			errors.bathrooms = true;
+		}
+		if (ad.carparks === "") {
+			errors.carparks = true;
+		}
+		if (ad.landsize === "") {
+			errors.landsize = true;
+		}
+		if (ad.title === "") {
+			errors.title = true;
+		}
+		if (ad.description === "") {
+			errors.description = true;
+		}
+
+		setErrors(errors);
+		return Object.keys(errors).length === 0;
+	};
+
+	const handleSubmit = async e => {
+		e.preventDefault();
+
+		if (!isFormValid()) {
+			setErrorMsg(true);
+			return;
+		}
+
+		setAd({ ...ad, loading: true });
+		try {
+			//const data = await createAd(ad);
+			const data = await createAd({ ad });
+			console.log(data);
+		} catch (eror) {}
+		setAd({ ...ad, loading: false });
+	};
 	return (
-		<form className="ad-form">
-			<div className="form-control">
-				<textarea
-					type="text"
-					placeholder="Enter address"
-					value={ad.address}
-					className=""
-					onChange={e => setAd({ ...ad, address: e.target.value })}
+		<form
+			className="ad-form"
+			onSubmit={handleSubmit}
+		>
+			{errorMsg && <div className="error-msg form-control">Please fill all the fields properly</div>}
+			<div className={errors?.address ? "error form-control" : "form-control"}>
+				<GooglePlacesAutocomplete
+					//apiKey={process.env.REACT_APP_GOOGLE_KEY}
+					apiKey="AIzaSyA84npVMaP3fYZS_IeAnDAm6sMMgYbnFEs"
+					apiOptions={{
+						region: "west-midlands",
+						language: "en"
+					}}
+					autocompletionRequest={{
+						// bounds: [
+						// 	{ lat: 50, lng: 50 },
+						// 	{ lat: 100, lng: 100 }
+						// ],
+						componentRestrictions: {
+							country: ["uk"]
+						}
+					}}
+					selectProps={{
+						defaultInputValue: ad?.address,
+
+						placeholder: "Search for address",
+
+						onChange: ({ value }) => {
+							setAd({ ...ad, address: value.description });
+							console.log(value);
+						},
+						onBlur: () => {
+							if (ad.address !== "") {
+								setErrors({ ...errors, address: false });
+							}
+						}
+					}}
 				/>
 			</div>
-			<div className="form-control">
+			<div className={"form-control"}>
 				<CurrencyInput
 					placeholder="Enter price"
 					defaultValue={ad.price}
-					className=""
 					onValueChange={value => setAd({ ...ad, price: value })}
+					className={errors.price ? "error" : ""}
+					onBlur={() => {
+						if (ad.price !== "") {
+							setErrors({ ...errors, price: false });
+						}
+					}}
 				/>
 			</div>
 			{type === "House" ? (
@@ -52,6 +138,12 @@ const AdForm = ({ action, type }) => {
 							placeholder="Enter number of bedrooms"
 							value={ad.bedrooms}
 							onChange={e => setAd({ ...ad, bedrooms: e.target.value })}
+							className={errors.bedrooms ? "error" : ""}
+							onBlur={() => {
+								if (ad.bedrooms !== "") {
+									setErrors({ ...errors, bedrooms: false });
+								}
+							}}
 						/>
 					</div>
 					<div className="form-control">
@@ -61,6 +153,12 @@ const AdForm = ({ action, type }) => {
 							placeholder="Enter number of bathrooms"
 							value={ad.bathrooms}
 							onChange={e => setAd({ ...ad, bathrooms: e.target.value })}
+							className={errors.bathrooms ? "error" : ""}
+							onBlur={() => {
+								if (ad.bathrooms !== "") {
+									setErrors({ ...errors, bathrooms: false });
+								}
+							}}
 						/>
 					</div>
 					<div className="form-control">
@@ -70,6 +168,12 @@ const AdForm = ({ action, type }) => {
 							placeholder="Enter number of carparks"
 							value={ad.carparks}
 							onChange={e => setAd({ ...ad, carparks: e.target.value })}
+							className={errors.carparks ? "error" : ""}
+							onBlur={() => {
+								if (ad.carparks !== "") {
+									setErrors({ ...errors, carparks: false });
+								}
+							}}
 						/>
 					</div>
 				</>
@@ -82,6 +186,12 @@ const AdForm = ({ action, type }) => {
 					placeholder="Size of land"
 					value={ad.landsize}
 					onChange={e => setAd({ ...ad, landsize: e.target.value })}
+					className={errors.landsize ? "error" : ""}
+					onBlur={() => {
+						if (ad.landsize !== "") {
+							setErrors({ ...errors, landsize: false });
+						}
+					}}
 				/>
 			</div>
 			<div className="form-control">
@@ -90,14 +200,26 @@ const AdForm = ({ action, type }) => {
 					placeholder="Enter title"
 					value={ad.title}
 					onChange={e => setAd({ ...ad, title: e.target.value })}
+					className={errors.title ? "error" : ""}
+					onBlur={() => {
+						if (ad.title !== "") {
+							setErrors({ ...errors, title: false });
+						}
+					}}
 				/>
 			</div>
 			<div className="form-control">
 				<textarea
 					type="text"
 					placeholder="Enter description"
-					value={ad.descreption}
-					onChange={e => setAd({ ...ad, descreption: e.target.value })}
+					value={ad.description}
+					onChange={e => setAd({ ...ad, description: e.target.value })}
+					className={errors.description ? "error" : ""}
+					onBlur={() => {
+						if (ad.description !== "") {
+							setErrors({ ...errors, description: false });
+						}
+					}}
 				/>
 			</div>
 			<div className="form-control">

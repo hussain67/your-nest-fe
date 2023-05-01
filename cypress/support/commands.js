@@ -26,7 +26,7 @@
 
 // eslint-disable-next-line no-undef
 Cypress.Commands.add("login", () => {
-	cy.request("POST", "http://localhost:8000/api/v1/auth/login", { email: "hussain.msh67@gmail.com", password: "123123" }).then(res => {
+	cy.request("POST", "http://localhost:8000/api/v1/auth/login", { email: "hussain.msh67@yahoo.com", password: "123123" }).then(res => {
 		localStorage.setItem("auth", JSON.stringify(res.body));
 
 		//Will set user to auth context
