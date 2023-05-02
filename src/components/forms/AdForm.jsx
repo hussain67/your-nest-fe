@@ -83,7 +83,8 @@ const AdForm = ({ action, type }) => {
 			{errorMsg && <div className="error-msg form-control">Please fill all the fields properly</div>}
 			<div className={errors?.address ? "error form-control" : "form-control"}>
 				<GooglePlacesAutocomplete
-					apiKey={process.env.REACT_APP_GOOGLE_KEY}
+					//apiKey={process.env.REACT_APP_GOOGLE_KEY}
+					apiKey="AIzaSyA84npVMaP3fYZS_IeAnDAm6sMMgYbnFEs"
 					apiOptions={{
 						region: "west-midlands",
 						language: "en"
