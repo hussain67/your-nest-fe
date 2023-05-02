@@ -28,6 +28,24 @@ describe.only("adForm type = House", () => {
 		cy.contains("Upload photos");
 	});
 
+	it.only("submit the data properly", () => {
+		cy.intercept("POST", "http://localhost:8000/api/v1/ad/create-ad", { body: { status: "Success" } }).as("createAd");
+
+		renderAdForm("House");
+
+		//cy.get(".css-qbdosj-Input");
+		cy.get('input[placeholder = "Enter price"]').click().type(20000);
+		cy.get('input[placeholder = "Enter number of bedrooms"]').type(3);
+		cy.get('input[placeholder = "Enter number of bathrooms"]').type(2);
+		cy.get('input[placeholder = "Enter number of carparks"]').type(1);
+
+		cy.get('input[placeholder = "Size of land"]').type("2 acres");
+		cy.get('input[placeholder = "Enter title"]').type("test title");
+		cy.get('textarea[placeholder = "Enter description"]').type("Excellent condition");
+
+		cy.get('[data-cy="sell-rent-btn"]').as("submitBtn").click();
+		cy.wait("@createAd").its("request.body").should("contains", { price: "20000", bedrooms: "3", bathrooms: "2", carparks: "1", landsize: "2 acres", title: "test title", description: "Excellent condition" });
+	});
 	it("display error sign when form fields are not properly filled", () => {
 		renderAdForm("House");
 		cy.get('[data-cy="sell-rent-btn"]').as("submitBtn");
@@ -56,20 +74,6 @@ describe.only("adForm type = House", () => {
 		cy.get('input[placeholder = "Size of land"]').type("120 acre").blur().should("not.have.class", "error");
 		cy.get('input[placeholder = "Enter title"]').type("title").blur().should("not.have.class", "error");
 		cy.get('textarea[placeholder = "Enter description"]').click().type("fake description").blur().should("not.have.class", "error");
-	});
-	it.only("submit the data properly", () => {
-		renderAdForm("House");
-
-		//cy.get(".css-qbdosj-Input");
-		cy.get('input[placeholder = "Enter price"]').type("10000");
-		cy.get('input[placeholder = "Enter number of bedrooms"]').type(3);
-		cy.get('input[placeholder = "Enter number of bathrooms"]').type(2);
-		cy.get('input[placeholder = "Enter number of carparks"]').type(1);
-
-		cy.get('input[placeholder = "Size of land"]').type(2344);
-		cy.get('input[placeholder = "Enter title"]').type("test title");
-		cy.get('textarea[placeholder = "Enter description"]').type("Excellent condition");
-		cy.get('[data-cy="sell-rent-btn"]').as("submitBtn").click();
 	});
 });
 describe("type = Land", () => {

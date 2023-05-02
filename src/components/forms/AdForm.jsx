@@ -31,9 +31,9 @@ const AdForm = ({ action, type }) => {
 
 	const isFormValid = () => {
 		const errors = {};
-		if (ad.address === "") {
-			errors.address = true;
-		}
+		// if (ad.address === "") {
+		// 	errors.address = true;
+		// }
 		if (ad.price === "") {
 			errors.price = true;
 		}
@@ -70,8 +70,7 @@ const AdForm = ({ action, type }) => {
 
 		setAd({ ...ad, loading: true });
 		try {
-			//const data = await createAd(ad);
-			const data = await createAd({ ad });
+			const data = await createAd(ad);
 			console.log(data);
 		} catch (eror) {}
 		setAd({ ...ad, loading: false });
@@ -84,8 +83,7 @@ const AdForm = ({ action, type }) => {
 			{errorMsg && <div className="error-msg form-control">Please fill all the fields properly</div>}
 			<div className={errors?.address ? "error form-control" : "form-control"}>
 				<GooglePlacesAutocomplete
-					//apiKey={process.env.REACT_APP_GOOGLE_KEY}
-					apiKey="AIzaSyA84npVMaP3fYZS_IeAnDAm6sMMgYbnFEs"
+					apiKey={process.env.REACT_APP_GOOGLE_KEY}
 					apiOptions={{
 						region: "west-midlands",
 						language: "en"

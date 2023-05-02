@@ -23,7 +23,7 @@ export const removeImage = async photo => {
 
 export const createAd = async ad => {
 	try {
-		const { data } = axios.post("/ad/create-ad", ad);
+		const { data } = await axios.post("/ad/create-ad", ad);
 		console.log(data);
 		if (data?.error) {
 			toast.error(data.error);
