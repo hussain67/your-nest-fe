@@ -6,9 +6,11 @@ import CurrencyInput from "react-currency-input-field";
 import ImageUpload from "./ImageUpload";
 import "./adForm.scss";
 import { createAd } from "../../utils/api/adApi";
+import { useNavigate } from "react-router-dom";
 
 const AdForm = ({ action, type }) => {
 	//const { auth, setAuth } = useAuthContext();
+	const navigate = useNavigate();
 	const initialState = {
 		photos: [],
 		uploading: false,
@@ -29,22 +31,25 @@ const AdForm = ({ action, type }) => {
 	const [errors, setErrors] = useState({});
 	const [errorMsg, setErrorMsg] = useState(false);
 
-	const isFormValid = () => {
+	console.log(ad.address);
+	const isFormValid = type => {
 		const errors = {};
-		// if (ad.address === "") {
-		// 	errors.address = true;
-		// }
+		if (ad.address === "") {
+			errors.address = true;
+		}
 		if (ad.price === "") {
 			errors.price = true;
 		}
-		if (ad.bedrooms === "") {
-			errors.bedrooms = true;
-		}
-		if (ad.bathrooms === "") {
-			errors.bathrooms = true;
-		}
-		if (ad.carparks === "") {
-			errors.carparks = true;
+		if (type === "House") {
+			if (ad.bedrooms === "") {
+				errors.bedrooms = true;
+			}
+			if (ad.bathrooms === "") {
+				errors.bathrooms = true;
+			}
+			if (ad.carparks === "") {
+				errors.carparks = true;
+			}
 		}
 		if (ad.landsize === "") {
 			errors.landsize = true;
@@ -55,6 +60,9 @@ const AdForm = ({ action, type }) => {
 		if (ad.description === "") {
 			errors.description = true;
 		}
+		if (ad.photos.length === 0) {
+			errors.description = true;
+		}
 
 		setErrors(errors);
 		return Object.keys(errors).length === 0;
@@ -63,7 +71,7 @@ const AdForm = ({ action, type }) => {
 	const handleSubmit = async e => {
 		e.preventDefault();
 
-		if (!isFormValid()) {
+		if (!isFormValid(type)) {
 			setErrorMsg(true);
 			return;
 		}
@@ -72,6 +80,7 @@ const AdForm = ({ action, type }) => {
 		try {
 			const data = await createAd(ad);
 			console.log(data);
+			navigate("/");
 		} catch (eror) {}
 		setAd({ ...ad, loading: false });
 	};
@@ -94,7 +103,7 @@ const AdForm = ({ action, type }) => {
 						// 	{ lat: 100, lng: 100 }
 						// ],
 						componentRestrictions: {
-							country: ["uk"]
+							country: ["GB"]
 						}
 					}}
 					selectProps={{
@@ -233,7 +242,7 @@ const AdForm = ({ action, type }) => {
 				disabled={ad.loading}
 				data-cy="sell-rent-btn"
 			>
-				Submit
+				{ad.loading ? "Saving..." : "Submit"}
 			</button>
 		</form>
 	);

@@ -59,7 +59,7 @@ const ImageUpload = ({ ad, setAd }) => {
 
 	return (
 		<div className="image-upload">
-			<label>
+			<label data-cy="image-upload">
 				{ad.uploading ? "Processing..." : "Upload photos"}
 
 				<input
@@ -68,6 +68,7 @@ const ImageUpload = ({ ad, setAd }) => {
 					accept="image/*"
 					multiple
 					hidden
+					data-cy="image-upload-input"
 				/>
 			</label>
 			{ad.photos?.map(photo => {

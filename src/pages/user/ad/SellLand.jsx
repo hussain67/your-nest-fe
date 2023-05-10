@@ -1,7 +1,18 @@
 import React from "react";
-
+import AdForm from "../../../components/forms/AdForm";
+import "./ad.scss";
 const SellLand = () => {
-	return <div>Sell Land</div>;
+	return (
+		<main className="ad-main">
+			<h1>Sell Land</h1>
+			{
+				<AdForm
+					action={"sell"}
+					type="Land"
+				/>
+			}
+		</main>
+	);
 };
 
 export default SellLand;

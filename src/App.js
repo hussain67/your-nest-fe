@@ -9,7 +9,7 @@ import AccessAccount from "./pages/auth/access/AccessAccount";
 import AccountActivate from "./pages/auth/activate/AccountActivate";
 import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
 import LoginRegister from "./pages/auth/login-register/LoginRegister";
-import Home from "./pages/home/Home";
+//import Home from "./pages/home/Home";
 import AdCreate from "./pages/user/ad/AdCreate";
 import RentHouse from "./pages/user/ad/RentHouse";
 import RentLand from "./pages/user/ad/RentLand";
@@ -57,19 +57,19 @@ function App() {
 							element={<AdCreate />}
 						/>
 						<Route
-							path="/ad/create/sell/house"
+							path="ad/create/sell/house"
 							element={<SellHouse />}
 						/>
 						<Route
-							path="/ad/create/sell/land"
+							path="ad/create/sell/land"
 							element={<SellLand />}
 						/>
 						<Route
-							path="/ad/create/rent/house"
+							path="ad/create/rent/house"
 							element={<RentHouse />}
 						/>
 						<Route
-							path="/ad/create/rent/land"
+							path="ad/create/rent/land"
 							element={<RentLand />}
 						/>
 					</Route>
