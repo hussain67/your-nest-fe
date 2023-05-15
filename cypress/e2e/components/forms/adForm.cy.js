@@ -17,10 +17,10 @@ describe("adForm", () => {
 			}
 		});
 	};
-	const uploadImageHouse = () => {
-		cy.get('[data-cy="image-upload"]');
-		cy.get('[data-cy="image-upload-input"]').selectFile("cypress/fixtures/house1.jpg", { force: true });
-	};
+	// const uploadImageHouse = () => {
+	// 	cy.get('[data-cy="image-upload"]');
+	// 	cy.get('[data-cy="image-upload-input"]').selectFile("cypress/fixtures/house1.jpg", { force: true });
+	// };
 	const fillFormHouse = () => {
 		cy.get('input[placeholder = "Enter price"]').type(20000, { force: true });
 		cy.get('input[placeholder = "Enter number of bedrooms"]').type(3);

@@ -31,7 +31,6 @@ const AdForm = ({ action, type }) => {
 	const [errors, setErrors] = useState({});
 	const [errorMsg, setErrorMsg] = useState(false);
 
-	console.log(ad.address);
 	const isFormValid = type => {
 		const errors = {};
 		if (ad.address === "") {
@@ -61,7 +60,7 @@ const AdForm = ({ action, type }) => {
 			errors.description = true;
 		}
 		if (ad.photos.length === 0) {
-			errors.description = true;
+			errors.photos = true;
 		}
 
 		setErrors(errors);
@@ -230,10 +229,12 @@ const AdForm = ({ action, type }) => {
 				/>
 			</div>
 			<div className="form-control">
-				<ImageUpload
-					ad={ad}
-					setAd={setAd}
-				/>
+				<div className={errors.photos ? "error" : ""}>
+					<ImageUpload
+						ad={ad}
+						setAd={setAd}
+					/>
+				</div>
 			</div>
 
 			<button

@@ -9,7 +9,7 @@ const SellHouse = () => {
 
 			{
 				<AdForm
-					action={"sell"}
+					action={"Sell"}
 					type="House"
 				/>
 			}

@@ -8,7 +8,7 @@ const RentHouse = () => {
 
 			{
 				<AdForm
-					action={"rent"}
+					action={"Rent"}
 					type="House"
 				/>
 			}

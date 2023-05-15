@@ -9,7 +9,7 @@ import AccessAccount from "./pages/auth/access/AccessAccount";
 import AccountActivate from "./pages/auth/activate/AccountActivate";
 import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
 import LoginRegister from "./pages/auth/login-register/LoginRegister";
-//import Home from "./pages/home/Home";
+import Home from "./pages/home/Home";
 import AdCreate from "./pages/user/ad/AdCreate";
 import RentHouse from "./pages/user/ad/RentHouse";
 import RentLand from "./pages/user/ad/RentLand";
@@ -23,10 +23,11 @@ function App() {
 			<AuthProvider>
 				<MainNav />
 				<Routes>
-					{/* <Route
+					<Route
 						path="/"
 						element={<Home />}
-					/> */}
+					/>
+
 					<Route
 						path="/account/login-register"
 						element={<LoginRegister />}

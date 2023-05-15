@@ -35,3 +35,10 @@ export const createAd = async ad => {
 		console.log(error);
 	}
 };
+
+export const getAds = async () => {
+	try {
+		const { data } = await axios.get("/ad/get-ads");
+		return data;
+	} catch (error) {}
+};
