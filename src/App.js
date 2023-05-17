@@ -5,6 +5,7 @@ import "./App.css";
 import MainNav from "./components/nav/MainNav";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthProvider } from "./context/authContext";
+import AdView from "./pages/adview/AdView";
 import AccessAccount from "./pages/auth/access/AccessAccount";
 import AccountActivate from "./pages/auth/activate/AccountActivate";
 import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
@@ -74,6 +75,10 @@ function App() {
 							element={<RentLand />}
 						/>
 					</Route>
+					<Route
+						path="/ad/:slug"
+						element={<AdView />}
+					/>
 				</Routes>
 			</AuthProvider>
 			<ToastContainer

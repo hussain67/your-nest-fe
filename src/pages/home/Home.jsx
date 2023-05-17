@@ -9,8 +9,8 @@ const Home = () => {
 	// console.log(auth);
 	const [sellAds, setSellAds] = useState([]);
 	const [rentAds, setRentAds] = useState([]);
-	console.log(sellAds);
-	console.log(rentAds);
+	// console.log(sellAds);
+	// console.log(rentAds);
 	useEffect(() => {
 		const fetchAds = async () => {
 			try {

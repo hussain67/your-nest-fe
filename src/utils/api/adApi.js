@@ -42,3 +42,13 @@ export const getAds = async () => {
 		return data;
 	} catch (error) {}
 };
+
+export const getAd = async slug => {
+	try {
+		const { data } = await axios.get(`/ad/get-ad/${slug}`);
+		console.log(data, "getAd");
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./cards.scss";
 
 import { TbBath } from "react-icons/tb";
@@ -7,41 +8,43 @@ import { BiArea } from "react-icons/bi";
 import { formatNumber } from "../../utils/helpers/helper.ad";
 
 const AdCard = ({ ad }) => {
-	console.log(ad);
+	//console.log(ad);
 	return (
-		<div className="card">
-			<img
-				src={ad.photos[0].Location}
-				alt={ad.price}
-			/>
-			<div className="card-body">
-				<h3>£ {formatNumber(ad.price)}</h3>
-				<p className="address">{ad.address}</p>
-				<div className="card-footer">
-					{ad.bedrooms ? (
-						<p>
-							<IoBedOutline /> {ad.bedrooms}
-						</p>
-					) : (
-						""
-					)}
-					{ad.landsize ? (
-						<p>
-							<BiArea /> {ad.landsize}
-						</p>
-					) : (
-						""
-					)}
-					{ad.bathrooms ? (
-						<p>
-							<TbBath /> {ad.bathrooms}
-						</p>
-					) : (
-						""
-					)}
+		<Link to={`/ad/${ad.slug}`}>
+			<div className="card">
+				<img
+					src={ad.photos[0].Location}
+					alt={ad.price}
+				/>
+				<div className="card-body">
+					<h3>£ {formatNumber(ad.price)}</h3>
+					<p className="address">{ad.address}</p>
+					<div className="card-footer">
+						{ad.bedrooms ? (
+							<p>
+								<IoBedOutline /> {ad.bedrooms}
+							</p>
+						) : (
+							""
+						)}
+						{ad.landsize ? (
+							<p>
+								<BiArea /> {ad.landsize}
+							</p>
+						) : (
+							""
+						)}
+						{ad.bathrooms ? (
+							<p>
+								<TbBath /> {ad.bathrooms}
+							</p>
+						) : (
+							""
+						)}
+					</div>
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 };
 

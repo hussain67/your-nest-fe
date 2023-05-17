@@ -112,7 +112,7 @@ const AdForm = ({ action, type }) => {
 
 						onChange: ({ value }) => {
 							setAd({ ...ad, address: value.description });
-							console.log(value);
+							//console.log(value);
 						},
 						onBlur: () => {
 							if (ad.address !== "") {
