@@ -241,7 +241,7 @@ const AdForm = ({ action, type }) => {
 				className="btn btn-add-form"
 				type="submit"
 				disabled={ad.loading}
-				data-cy="sell-rent-btn"
+				data-cy=""
 			>
 				{ad.loading ? "Saving..." : "Submit"}
 			</button>

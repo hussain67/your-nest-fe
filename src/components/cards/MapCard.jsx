@@ -1,37 +1,26 @@
-import React from "react";
-import GoogleMapReact from "google-map-react";
-
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 const MapCard = ({ ad }) => {
-	const defaultProps = {
-		center: {
-			// lat: 52.486244,
-			// lng: -1.890401
-			lat: ad?.location.coordinates[1],
-			lng: ad?.location.coordinates[0]
-		},
-		zoom: 11
-	};
+	const la = ad?.location.coordinates[1];
+	const ln = ad?.location.coordinates[0];
 
-	return (
-		<div style={{ width: "100%", height: "500px" }}>
-			{ad?.location.coordinates.length && (
-				<GoogleMapReact
-					bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_KEY }}
-					defaultCenter={defaultProps.center}
-					defaultZoom={defaultProps.zoom}
-				>
-					<div
-						// lat={52.486244}
-						// lng={-1.890401}
-						lat={ad?.location.coordinates[1]}
-						lng={ad?.location.coordinates[0]}
-					>
-						<span style={{ fontSize: "35px" }}> 📍 </span>
-					</div>
-				</GoogleMapReact>
-			)}
-		</div>
-	);
+	const position = [la, ln];
+
+	if (la && ln) {
+		return (
+			<MapContainer
+				center={position}
+				zoom={13}
+				scrollWheelZoom={false}
+				style={{ height: "400px", width: "700px" }}
+			>
+				<TileLayer
+					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+				/>
+				<Marker position={position}></Marker>
+			</MapContainer>
+		);
+	}
 };
 
 export default MapCard;

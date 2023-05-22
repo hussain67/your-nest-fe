@@ -3,6 +3,7 @@ import "./adView.scss";
 import { useParams } from "react-router-dom";
 import { getAd } from "../../utils/api/adApi";
 import MapCard from "../../components/cards/MapCard";
+import ContactForm from "../../components/forms/ContactForm";
 
 const AdView = () => {
 	const { slug } = useParams();
@@ -29,6 +30,7 @@ const AdView = () => {
 				{ad?.address}
 			</div>
 			<div className="page-section">{<MapCard ad={ad} />}</div>
+			<div className="page-section">{<ContactForm ad={ad} />}</div>
 		</>
 	);
 };

@@ -52,3 +52,12 @@ export const getAd = async slug => {
 		console.log(error);
 	}
 };
+
+export const contactSeller = async info => {
+	try {
+		const { data } = axios.post("/ad/contact-seller", info);
+		console.log(data);
+	} catch (error) {
+		console.log(error);
+	}
+};
