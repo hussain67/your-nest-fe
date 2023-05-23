@@ -1,7 +1,9 @@
 import React from "react";
+import "./carousal.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectFade, Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css/bundle";
+
 const Carousal = ({ photos }) => {
 	SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -17,7 +19,7 @@ const Carousal = ({ photos }) => {
 			{photos?.map((url, index) => (
 				<SwiperSlide key={index}>
 					<div
-						className="slider"
+						className="carousal-slider"
 						style={{
 							background: `url(${photos[index]}) center no-repeat`,
 

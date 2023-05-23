@@ -26,11 +26,11 @@ const AdView = () => {
 	});
 
 	return (
-		<>
+		<article className="ad">
 			<div className="page-section ad-view">{photos && <Carousal photos={photos} />}</div>
-			<div className="page-section">{<MapCard ad={ad} />}</div>
+			<div className="page-section ad-info">{<MapCard ad={ad} />}</div>
 			<div className="page-section">{<ContactForm ad={ad} />}</div>
-		</>
+		</article>
 	);
 };
 

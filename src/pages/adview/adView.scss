@@ -1,9 +1,5 @@
-.ad-view {
-	width: 80vw;
-	.slider {
-		position: relative;
-		width: 100%;
-		overflow: hidden;
-		height: 350px;
+.ad {
+	&-view {
+		width: 80vw;
 	}
 }
