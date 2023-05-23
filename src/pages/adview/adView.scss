@@ -1,8 +1,9 @@
 .ad-view {
-	display: grid;
-	justify-content: center;
-	img {
-		width: 300px;
-		height: auto;
+	width: 80vw;
+	.slider {
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+		height: 350px;
 	}
 }
