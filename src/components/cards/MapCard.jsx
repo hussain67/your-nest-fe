@@ -11,7 +11,7 @@ const MapCard = ({ ad }) => {
 				center={position}
 				zoom={13}
 				scrollWheelZoom={false}
-				style={{ height: "400px", width: "700px" }}
+				style={{ height: "300px", width: "100%" }}
 			>
 				<TileLayer
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

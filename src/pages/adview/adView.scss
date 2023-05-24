@@ -1,5 +1,15 @@
-.ad {
-	&-view {
+.ad-view {
+	.carousal {
 		width: 80vw;
+	}
+	.info {
+		@media (min-width: 768px) {
+			display: grid;
+			gap: 25px;
+			grid-template-columns: 1fr 1.5fr;
+		}
+		.info-main {
+			//min-width: 250px;
+		}
 	}
 }

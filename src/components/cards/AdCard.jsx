@@ -2,10 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./cards.scss";
 
-import { TbBath } from "react-icons/tb";
-import { IoBedOutline } from "react-icons/io5";
-import { BiArea } from "react-icons/bi";
 import { formatNumber } from "../../utils/helpers/helper.ad";
+import AdFooter from "./AdFooter";
 
 const AdCard = ({ ad }) => {
 	//console.log(ad);
@@ -19,29 +17,7 @@ const AdCard = ({ ad }) => {
 				<div className="card-body">
 					<h3>£ {formatNumber(ad.price)}</h3>
 					<p className="address">{ad.address}</p>
-					<div className="card-footer">
-						{ad.bedrooms ? (
-							<p>
-								<IoBedOutline /> {ad.bedrooms}
-							</p>
-						) : (
-							""
-						)}
-						{ad.landsize ? (
-							<p>
-								<BiArea /> {ad.landsize}
-							</p>
-						) : (
-							""
-						)}
-						{ad.bathrooms ? (
-							<p>
-								<TbBath /> {ad.bathrooms}
-							</p>
-						) : (
-							""
-						)}
-					</div>
+					{<AdFooter ad={ad} />}
 				</div>
 			</div>
 		</Link>
