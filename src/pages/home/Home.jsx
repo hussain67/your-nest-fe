@@ -24,30 +24,32 @@ const Home = () => {
 		fetchAds();
 	}, []);
 	return (
-		<section className="page-section">
-			<h1 className="action">For Sell</h1>
-			<article className="card-container">
-				{sellAds?.map(ad => {
-					return (
-						<AdCard
-							ad={ad}
-							key={ad._id}
-						/>
-					);
-				})}
-			</article>
-			<h1 className="action">For Rent</h1>
-			<article className="card-container">
-				{rentAds?.map(ad => {
-					return (
-						<AdCard
-							ad={ad}
-							key={ad._id}
-						/>
-					);
-				})}
-			</article>
-		</section>
+		<main className="home">
+			<section className="page-section">
+				<h1 className="action">For Sell</h1>
+				<article className="card-container">
+					{sellAds?.map(ad => {
+						return (
+							<AdCard
+								ad={ad}
+								key={ad._id}
+							/>
+						);
+					})}
+				</article>
+				<h1 className="action">For Rent</h1>
+				<article className="card-container">
+					{rentAds?.map(ad => {
+						return (
+							<AdCard
+								ad={ad}
+								key={ad._id}
+							/>
+						);
+					})}
+				</article>
+			</section>
+		</main>
 	);
 };
 

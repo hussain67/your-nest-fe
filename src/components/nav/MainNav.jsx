@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/authContext";
-import "./nav.scss";
+import "./mainNav.scss";
 
 const MainNav = () => {
 	const { auth, setAuth } = useAuthContext();
@@ -27,29 +27,27 @@ const MainNav = () => {
 		navigate("/account/login-register");
 	};
 	return (
-		<section className="nav-section">
-			<nav className="nav">
+		<nav className="nav">
+			<NavLink
+				to="/"
+				data-cy="mainnav-home-link"
+			>
+				Home
+			</NavLink>
+			<div onClick={handlePostAdClick}>Post Ad</div>
+			{loggedIn ? (
+				<Link>
+					<span onClick={logout}> Log out</span>
+				</Link>
+			) : (
 				<NavLink
-					to="/"
-					data-cy="mainnav-home-link"
+					to="/account/login-register"
+					data-cy="mainnav-login-link"
 				>
-					Home
+					Login/Register
 				</NavLink>
-				<div onClick={handlePostAdClick}>Post Ad</div>
-				{loggedIn ? (
-					<Link>
-						<span onClick={logout}> Log out</span>
-					</Link>
-				) : (
-					<NavLink
-						to="/account/login-register"
-						data-cy="mainnav-login-link"
-					>
-						Login/Register
-					</NavLink>
-				)}
-			</nav>
-		</section>
+			)}
+		</nav>
 	);
 };
 

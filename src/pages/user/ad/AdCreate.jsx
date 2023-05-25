@@ -16,54 +16,56 @@ const AdCreate = () => {
 		setRent(true);
 	};
 	return (
-		<section className="ad-create">
-			<article>
-				<button
-					className="sell-btn"
-					onClick={handleSell}
-				>
-					Sell
-				</button>
-				{sell && (
-					<div className="btn-container">
-						<button
-							data-cy="btn-sell-house"
-							onClick={() => navigate("/ad/create/sell/house")}
-						>
-							House
-						</button>
-						<button
-							data-cy="btn-sell-land"
-							onClick={() => navigate("/ad/create/sell/land")}
-						>
-							Land
-						</button>
-					</div>
-				)}
-			</article>
-			<article>
-				<button
-					className="rent-btn"
-					onClick={handleRent}
-				>
-					Rent
-				</button>
-				{rent && (
-					<div className="btn-container">
-						<button
-							data-cy="btn-rent-house"
-							onClick={() => navigate("/ad/create/rent/house")}
-						>
-							House
-						</button>
-						<button
-							data-cy="btn-rent-land"
-							onClick={() => navigate("/ad/create/rent/land")}
-						>
-							Land
-						</button>
-					</div>
-				)}
+		<section className="page-section">
+			<article className="ad-create">
+				<div>
+					<button
+						className="sell-btn"
+						onClick={handleSell}
+					>
+						Sell
+					</button>
+					{sell && (
+						<div className="btn-container">
+							<button
+								data-cy="btn-sell-house"
+								onClick={() => navigate("/ad/create/sell/house")}
+							>
+								House
+							</button>
+							<button
+								data-cy="btn-sell-land"
+								onClick={() => navigate("/ad/create/sell/land")}
+							>
+								Land
+							</button>
+						</div>
+					)}
+				</div>
+				<div>
+					<button
+						className="rent-btn"
+						onClick={handleRent}
+					>
+						Rent
+					</button>
+					{rent && (
+						<div className="btn-container">
+							<button
+								data-cy="btn-rent-house"
+								onClick={() => navigate("/ad/create/rent/house")}
+							>
+								House
+							</button>
+							<button
+								data-cy="btn-rent-land"
+								onClick={() => navigate("/ad/create/rent/land")}
+							>
+								Land
+							</button>
+						</div>
+					)}
+				</div>
 			</article>
 		</section>
 	);

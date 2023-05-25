@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import MainNav from "./components/nav/MainNav";
+import SiteFooter from "./components/nav/SiteFooter";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthProvider } from "./context/authContext";
 import AdView from "./pages/adview/AdView";
@@ -80,6 +81,7 @@ function App() {
 						element={<AdView />}
 					/>
 				</Routes>
+				<SiteFooter />
 			</AuthProvider>
 			<ToastContainer
 				position="top-center"
