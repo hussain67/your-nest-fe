@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/authContext";
 import "./mainNav.scss";
+import { BiUser, BiChevronDown } from "react-icons/bi";
 
 const MainNav = () => {
 	const { auth, setAuth } = useAuthContext();
 	const navigate = useNavigate();
-
 	const loggedIn = auth?.user !== null;
-
+	const [showDropdown, setShowDropdown] = useState(false);
+	console.log(showDropdown);
 	const handlePostAdClick = () => {
 		if (loggedIn) {
 			navigate("/ad/create");
 		} else {
 			navigate("/account/login-register");
 		}
+	};
+
+	const toggleShowDropdown = () => {
+		setShowDropdown(!showDropdown);
 	};
 
 	const logout = () => {
@@ -47,6 +52,26 @@ const MainNav = () => {
 					Login/Register
 				</NavLink>
 			)}
+			<div className="nav-user">
+				<div onClick={toggleShowDropdown}>
+					{loggedIn ? <span> {auth?.user.name}</span> : <BiUser />} <BiChevronDown />
+				</div>
+				{showDropdown && (
+					<ul className="nav-dropdown">
+						<li
+							onClick={() => {
+								toggleShowDropdown();
+								navigate("/dashboard");
+							}}
+						>
+							Dashboard
+						</li>
+						<li>Create Ad</li>
+						<li>Profile</li>
+						<li>Settings</li>
+					</ul>
+				)}
+			</div>
 		</nav>
 	);
 };
