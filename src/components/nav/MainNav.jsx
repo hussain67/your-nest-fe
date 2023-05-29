@@ -9,7 +9,7 @@ const MainNav = () => {
 	const navigate = useNavigate();
 	const loggedIn = auth?.user !== null;
 	const [showDropdown, setShowDropdown] = useState(false);
-	console.log(showDropdown);
+
 	const handlePostAdClick = () => {
 		if (loggedIn) {
 			navigate("/ad/create");
@@ -67,7 +67,14 @@ const MainNav = () => {
 							Dashboard
 						</li>
 						<li>Create Ad</li>
-						<li>Profile</li>
+						<li
+							onClick={() => {
+								toggleShowDropdown();
+								navigate("/user/profile");
+							}}
+						>
+							Profile
+						</li>
 						<li>Settings</li>
 					</ul>
 				)}

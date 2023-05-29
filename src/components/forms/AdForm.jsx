@@ -4,7 +4,8 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 //import { useAuthContext } from "../../context/authContext";
 import CurrencyInput from "react-currency-input-field";
 import ImageUpload from "./ImageUpload";
-import "./adForm.scss";
+
+import "./form.scss";
 import { createAd } from "../../utils/api/adApi";
 import { useNavigate } from "react-router-dom";
 
@@ -85,7 +86,7 @@ const AdForm = ({ action, type }) => {
 	};
 	return (
 		<form
-			className="ad-form"
+			className="form"
 			onSubmit={handleSubmit}
 		>
 			{errorMsg && <div className="error-msg form-control">Please fill all the fields properly</div>}
@@ -238,7 +239,7 @@ const AdForm = ({ action, type }) => {
 			</div>
 
 			<button
-				className="btn btn-add-form"
+				className="btn btn-form-submit"
 				type="submit"
 				disabled={ad.loading}
 				data-cy=""

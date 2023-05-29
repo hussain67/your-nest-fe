@@ -73,3 +73,10 @@ export const accessAccount = async token => {
 		return data;
 	} catch (error) {}
 };
+
+export const updateProfile = async profile => {
+	try {
+		const { data } = await axios.put("/auth/update-profile", profile);
+		console.log(data);
+	} catch (error) {}
+};

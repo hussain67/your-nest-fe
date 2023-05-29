@@ -18,6 +18,7 @@ import RentLand from "./pages/user/ad/RentLand";
 import SellHouse from "./pages/user/ad/SellHouse";
 import SellLand from "./pages/user/ad/SellLand";
 import Dashboard from "./pages/user/dashboard/Dashboard";
+import Profile from "./pages/user/profile/Profile";
 
 function App() {
 	return (
@@ -75,13 +76,17 @@ function App() {
 							path="ad/create/rent/land"
 							element={<RentLand />}
 						/>
+						<Route
+							path="user/profile"
+							element={<Profile />}
+						/>
 					</Route>
 					<Route
 						path="/ad/:slug"
 						element={<AdView />}
 					/>
 				</Routes>
-				<SiteFooter />
+				{/* <SiteFooter /> */}
 			</AuthProvider>
 			<ToastContainer
 				position="top-center"

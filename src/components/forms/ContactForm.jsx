@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../../context/authContext";
 import { contactSeller } from "../../utils/api/adApi";
-import "./contactForm.scss";
+import "./form.scss";
 
 const ContactForm = ({ ad }) => {
 	const { auth } = useAuthContext();
@@ -32,7 +32,7 @@ const ContactForm = ({ ad }) => {
 	};
 
 	return (
-		<article className="contact-form">
+		<article className="form">
 			<h3 className="title">Contact {ad?.postedBy?.name}</h3>
 			<form onSubmit={handleSubmit}>
 				<textarea
@@ -82,7 +82,7 @@ const ContactForm = ({ ad }) => {
 					/>
 				</div>
 				<button
-					className="btn btn-add-form"
+					className="btn btn-form-submit"
 					type="submit"
 					disabled={!name || !email || !message || loading}
 					data-cy=""
