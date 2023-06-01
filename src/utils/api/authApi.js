@@ -77,6 +77,22 @@ export const accessAccount = async token => {
 export const updateProfile = async profile => {
 	try {
 		const { data } = await axios.put("/auth/update-profile", profile);
-		console.log(data);
+		return data;
+		//console.log(data);
 	} catch (error) {}
+};
+
+export const updatePassword = async password => {
+	try {
+		const { data } = await axios.put("/auth/update-password", { password });
+		//console.log(data);
+		if (data.error) {
+			toast.error(data.error);
+		} else {
+			toast.success(" Your password has been updated successfully");
+		}
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
 };

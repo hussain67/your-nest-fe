@@ -75,7 +75,14 @@ const MainNav = () => {
 						>
 							Profile
 						</li>
-						<li>Settings</li>
+						<li
+							onClick={() => {
+								toggleShowDropdown();
+								navigate("/user/setting");
+							}}
+						>
+							Settings
+						</li>
 					</ul>
 				)}
 			</div>

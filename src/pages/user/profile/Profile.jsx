@@ -122,16 +122,15 @@ const Profile = () => {
 						setUploading={setUploading}
 					/>
 				</div>
-				<div className="container-btn-submit">
-					<button
-						className="btn btn-form-submit"
-						type="submit"
-						disabled={uploading}
-						data-cy="profile-submit-btn"
-					>
-						{uploading ? "Processing" : "Update profile"}
-					</button>
-				</div>
+
+				<button
+					className="btn btn-form-submit"
+					type="submit"
+					disabled={uploading}
+					data-cy="profile-submit-btn"
+				>
+					{uploading ? "Processing" : "Update profile"}
+				</button>
 			</form>
 		</section>
 	);

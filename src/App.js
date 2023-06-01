@@ -19,6 +19,7 @@ import SellHouse from "./pages/user/ad/SellHouse";
 import SellLand from "./pages/user/ad/SellLand";
 import Dashboard from "./pages/user/dashboard/Dashboard";
 import Profile from "./pages/user/profile/Profile";
+import Settings from "./pages/user/settings/Settings";
 
 function App() {
 	return (
@@ -79,6 +80,10 @@ function App() {
 						<Route
 							path="user/profile"
 							element={<Profile />}
+						/>
+						<Route
+							path="user/setting"
+							element={<Settings />}
 						/>
 					</Route>
 					<Route

@@ -52,13 +52,13 @@ describe("adForm", () => {
 			cy.contains("Sell").click();
 			cy.contains("House").click();
 
-			// can Select address
+			//Select address
 			selectAddress();
 
-			//Can fill form for house
+			//fill form for house
 			fillFormHouse();
 
-			//Can upload house image
+			//upload house image
 
 			cy.get('[data-cy="image-upload-input"]').selectFile("cypress/fixtures/house1.jpg", { force: true });
 			cy.wait(1000);
