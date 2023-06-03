@@ -16,13 +16,14 @@ const MainNav = () => {
 	};
 
 	const logout = () => {
+		navigate("/account/login-register");
+		console.log("logout");
 		setAuth({
 			user: null,
 			token: "",
 			refreshToken: ""
 		});
 		localStorage.removeItem("auth");
-		navigate("/account/login-register");
 	};
 	return (
 		<nav className="nav">
@@ -33,10 +34,10 @@ const MainNav = () => {
 				Home
 			</NavLink>
 
-			{loggedIn ? (
-				<Link>
+			{auth?.user ? (
+				<a>
 					<span onClick={logout}> Log out</span>
-				</Link>
+				</a>
 			) : (
 				<NavLink
 					to="/account/login-register"
@@ -47,7 +48,7 @@ const MainNav = () => {
 			)}
 			<div className="nav-user">
 				<div onClick={toggleShowDropdown}>
-					<FaRegUserCircle /> {loggedIn ? <span> {auth?.user.name}</span> : ""} <BiChevronDown />
+					<FaRegUserCircle /> {loggedIn ? <span> {auth?.user?.name}</span> : ""} <BiChevronDown />
 				</div>
 				{showDropdown && (
 					<ul className="nav-dropdown">

@@ -1,0 +1,12 @@
+.redirect {
+	display: grid;
+	height: 100vh;
+	place-content: center;
+	margin-top: -10%;
+	&-count {
+		color: blue;
+		font-size: 22px;
+		padding-left: 6px;
+		padding-right: 6px;
+	}
+}

@@ -33,7 +33,7 @@ const Dashboard = () => {
 				{user ? (
 					<div className="dashboard-seller">
 						<h1>
-							Hi {auth.user.name}, you have {total} advertisement.
+							Hi {auth?.user.name}, you have {total} advertisement.
 						</h1>
 						<div className="card-container">
 							{ads?.map(ad => {
@@ -43,7 +43,7 @@ const Dashboard = () => {
 					</div>
 				) : (
 					<div className="dashboard-byer">
-						<h1>Hi {auth.user.name}, welcome to Your-nest</h1>
+						<h1>Hi {auth?.user?.name}, welcome to Your-nest</h1>
 					</div>
 				)}
 				{ads.length < total && (
