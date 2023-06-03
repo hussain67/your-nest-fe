@@ -2,21 +2,14 @@ import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/authContext";
 import "./mainNav.scss";
-import { BiUser, BiChevronDown } from "react-icons/bi";
+import { BiChevronDown } from "react-icons/bi";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const MainNav = () => {
 	const { auth, setAuth } = useAuthContext();
 	const navigate = useNavigate();
 	const loggedIn = auth?.user !== null;
 	const [showDropdown, setShowDropdown] = useState(false);
-
-	const handlePostAdClick = () => {
-		if (loggedIn) {
-			navigate("/ad/create");
-		} else {
-			navigate("/account/login-register");
-		}
-	};
 
 	const toggleShowDropdown = () => {
 		setShowDropdown(!showDropdown);
@@ -39,7 +32,7 @@ const MainNav = () => {
 			>
 				Home
 			</NavLink>
-			<div onClick={handlePostAdClick}>Post Ad</div>
+
 			{loggedIn ? (
 				<Link>
 					<span onClick={logout}> Log out</span>
@@ -54,7 +47,7 @@ const MainNav = () => {
 			)}
 			<div className="nav-user">
 				<div onClick={toggleShowDropdown}>
-					{loggedIn ? <span> {auth?.user.name}</span> : <BiUser />} <BiChevronDown />
+					<FaRegUserCircle /> {loggedIn ? <span> {auth?.user.name}</span> : ""} <BiChevronDown />
 				</div>
 				{showDropdown && (
 					<ul className="nav-dropdown">
@@ -66,7 +59,14 @@ const MainNav = () => {
 						>
 							Dashboard
 						</li>
-						<li>Create Ad</li>
+						<li
+							onClick={() => {
+								toggleShowDropdown();
+								navigate("/ad/create");
+							}}
+						>
+							Create Ad
+						</li>
 						<li
 							onClick={() => {
 								toggleShowDropdown();

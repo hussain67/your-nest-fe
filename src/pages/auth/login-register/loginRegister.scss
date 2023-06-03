@@ -1,7 +1,9 @@
 .login-register {
-	height: calc(100vh - 104px);
+	//height: calc(100vh - 104px);
+	height: 100vh;
 	display: grid;
 	place-content: center;
+	margin-top: -10%;
 
 	&-form {
 		width: 360px;

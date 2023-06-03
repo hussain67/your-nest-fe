@@ -53,10 +53,23 @@ export const getAd = async slug => {
 	}
 };
 
+export const userAds = async page => {
+	//console.log("userAds");
+	try {
+		const { data } = await axios.get(`/ad/user-ads/${page}`);
+		console.log(page);
+		console.log(data);
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const contactSeller = async info => {
 	try {
-		const { data } = axios.post("/ad/contact-seller", info);
-		console.log(data);
+		const { data } = await axios.post("/ad/contact-seller", info);
+		//console.log(data);
+		return data;
 	} catch (error) {
 		console.log(error);
 	}
