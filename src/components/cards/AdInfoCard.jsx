@@ -5,7 +5,6 @@ import "./adInfoCard.scss";
 import { formatNumber } from "../../utils/helpers/helper.ad";
 import { FaMapMarkerAlt } from "react-icons/fa";
 const AdInfo = ({ ad }) => {
-	console.log(ad, "adInfo");
 	const { title, price, address, description } = ad;
 	return (
 		<article className="ad-info">
@@ -17,7 +16,7 @@ const AdInfo = ({ ad }) => {
 				{address}
 			</h4>
 			<p>Description: {description}</p>
-			<p className="footer">{<AdFooter ad={ad} />}</p>
+			<div className="footer">{<AdFooter ad={ad} />}</div>
 		</article>
 	);
 };

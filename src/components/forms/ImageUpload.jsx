@@ -35,7 +35,6 @@ const ImageUpload = ({ ad, setAd }) => {
 						);
 					});
 				});
-				console.log(files);
 			}
 		} catch (error) {
 			setAd({ ...ad, uploading: false });

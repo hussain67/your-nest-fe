@@ -13,6 +13,7 @@ import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
 import LoginRegister from "./pages/auth/login-register/LoginRegister";
 import Home from "./pages/home/Home";
 import AdCreate from "./pages/user/ad/AdCreate";
+import AdEdit from "./pages/user/ad/AdEdit";
 import RentHouse from "./pages/user/ad/RentHouse";
 import RentLand from "./pages/user/ad/RentLand";
 import SellHouse from "./pages/user/ad/SellHouse";
@@ -78,6 +79,10 @@ function App() {
 							element={<RentLand />}
 						/>
 						<Route
+							path="/ad/:slug"
+							element={<AdView />}
+						/>
+						<Route
 							path="user/profile"
 							element={<Profile />}
 						/>
@@ -86,9 +91,10 @@ function App() {
 							element={<Settings />}
 						/>
 					</Route>
+
 					<Route
-						path="/ad/:slug"
-						element={<AdView />}
+						path="user/ad/:slug"
+						element={<AdEdit />}
 					/>
 				</Routes>
 				{/* <SiteFooter /> */}

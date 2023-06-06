@@ -5,13 +5,13 @@ import "./form.scss";
 
 const ContactForm = ({ ad }) => {
 	const { auth } = useAuthContext();
-	//console.log(auth);
-	const [name, setName] = useState();
-	const [email, setEmail] = useState();
-	const [message, setMessage] = useState();
-	const [phone, setPhone] = useState();
-	const [loading, setLoading] = useState();
-	//console.log(ad);
+
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [message, setMessage] = useState("");
+	const [phone, setPhone] = useState("");
+	const [loading, setLoading] = useState(false);
+
 	const loggedIn = auth.user !== null && auth.token !== null;
 
 	useEffect(() => {
@@ -33,7 +33,7 @@ const ContactForm = ({ ad }) => {
 
 	return (
 		<article className="form">
-			<h3 className="title">Contact {ad?.postedBy?.name}</h3>
+			<h3 className="form-title">Contact {ad?.postedBy?.name}</h3>
 			<form onSubmit={handleSubmit}>
 				<textarea
 					name="message"

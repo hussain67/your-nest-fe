@@ -37,7 +37,12 @@ const Dashboard = () => {
 						</h1>
 						<div className="card-container">
 							{ads?.map(ad => {
-								return <AdCard ad={ad} />;
+								return (
+									<AdCard
+										ad={ad}
+										key={ad._id}
+									/>
+								);
 							})}
 						</div>
 					</div>

@@ -7,13 +7,22 @@ import { updateProfile } from "../../../utils/api/authApi";
 const Profile = () => {
 	const { auth } = useAuthContext();
 
-	const [profile, setProfile] = useState({});
+	const [profile, setProfile] = useState({
+		username: "",
+		name: "",
+		email: "",
+		company: "",
+		address: "",
+		phone: "",
+		about: "",
+		photo: ""
+	});
 	const [uploading, setUploading] = useState(false);
 	useEffect(() => {
 		if (auth.user) {
 			setProfile({
-				username: auth.user.username,
-				name: auth.user.name,
+				username: auth?.user.username,
+				name: auth?.user.name,
 				email: auth?.user.email,
 				company: auth.user.company,
 				address: auth.user.address,

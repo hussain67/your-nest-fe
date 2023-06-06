@@ -89,7 +89,7 @@ const LoginRegister = () => {
 			setLoading(true);
 			try {
 				const data = await logIn(email, password);
-				console.log(data);
+
 				if (!data.error) {
 					setAuth(data);
 					localStorage.setItem("auth", JSON.stringify(data));

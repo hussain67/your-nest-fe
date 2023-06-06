@@ -16,14 +16,13 @@ const MainNav = () => {
 	};
 
 	const logout = () => {
-		navigate("/account/login-register");
-		console.log("logout");
 		setAuth({
 			user: null,
 			token: "",
 			refreshToken: ""
 		});
 		localStorage.removeItem("auth");
+		//navigate("/account/login-register");
 	};
 	return (
 		<nav className="nav">
@@ -35,9 +34,9 @@ const MainNav = () => {
 			</NavLink>
 
 			{auth?.user ? (
-				<a>
+				<NavLink to="/account/login-register">
 					<span onClick={logout}> Log out</span>
-				</a>
+				</NavLink>
 			) : (
 				<NavLink
 					to="/account/login-register"

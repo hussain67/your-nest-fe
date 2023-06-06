@@ -8,8 +8,18 @@
 			gap: 25px;
 			grid-template-columns: 1fr 1.5fr;
 		}
-		.info-main {
-			//min-width: 250px;
+		&-update {
+			margin-top: 15px;
+			margin-bottom: 20px;
+			display: flex;
+			justify-content: space-between;
+		}
+		&-main {
+			max-width: 350px;
+		}
+		&-btn-delete {
+			background-color: red;
+			border-color: red;
 		}
 	}
 }

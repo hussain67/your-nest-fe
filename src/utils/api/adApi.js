@@ -24,6 +24,20 @@ export const removeImage = async photo => {
 export const createAd = async ad => {
 	try {
 		const { data } = await axios.post("/ad/create-ad", ad);
+		//console.log(data);
+		if (data?.error) {
+			toast.error(data.error);
+		} else {
+			toast.success("Success");
+		}
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+export const updateAd = async ad => {
+	try {
+		const { data } = await axios.put(`/ad/update-ad/${ad._id}`, ad);
 		console.log(data);
 		if (data?.error) {
 			toast.error(data.error);
@@ -46,7 +60,7 @@ export const getAds = async () => {
 export const getAd = async slug => {
 	try {
 		const { data } = await axios.get(`/ad/get-ad/${slug}`);
-		console.log(data, "getAd");
+
 		return data;
 	} catch (error) {
 		console.log(error);
@@ -54,11 +68,9 @@ export const getAd = async slug => {
 };
 
 export const userAds = async page => {
-	//console.log("userAds");
 	try {
 		const { data } = await axios.get(`/ad/user-ads/${page}`);
-		console.log(page);
-		console.log(data);
+
 		return data;
 	} catch (error) {
 		console.log(error);
