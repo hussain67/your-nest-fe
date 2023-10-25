@@ -11,7 +11,7 @@ const LoginRegister = () => {
 
 	const navigate = useNavigate();
 	const navigateToHomePage = () => {
-		navigate("/");
+		navigate(`/`);
 	};
 	const initialInput = {
 		name: "",
@@ -74,6 +74,8 @@ const LoginRegister = () => {
 			if (!isFormValid(!isRegistered)) return;
 			setLoading(true);
 			try {
+				console.log(name, email, password);
+
 				const { status } = await preRegister(name, email, password);
 
 				if (status === "Success") {

@@ -1,20 +1,17 @@
 import React, { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/authContext";
 import "./mainNav.scss";
 import { BiChevronDown } from "react-icons/bi";
 import { FaRegUserCircle } from "react-icons/fa";
+import Avatar from "antd/es/avatar/avatar";
 
 const MainNav = () => {
 	const { auth, setAuth } = useAuthContext();
 	const navigate = useNavigate();
 	const loggedIn = auth?.user !== null;
+
 	const [showDropdown, setShowDropdown] = useState(false);
-
-	const toggleShowDropdown = () => {
-		setShowDropdown(!showDropdown);
-	};
-
 	const logout = () => {
 		setAuth({
 			user: null,
@@ -22,7 +19,6 @@ const MainNav = () => {
 			refreshToken: ""
 		});
 		localStorage.removeItem("auth");
-		//navigate("/account/login-register");
 	};
 	return (
 		<nav className="nav">
@@ -34,7 +30,7 @@ const MainNav = () => {
 			</NavLink>
 
 			{auth?.user ? (
-				<NavLink to="/account/login-register">
+				<NavLink to="/">
 					<span onClick={logout}> Log out</span>
 				</NavLink>
 			) : (
@@ -45,15 +41,31 @@ const MainNav = () => {
 					Login/Register
 				</NavLink>
 			)}
-			<div className="nav-user">
-				<div onClick={toggleShowDropdown}>
-					<FaRegUserCircle /> {loggedIn ? <span> {auth?.user?.name}</span> : ""} <BiChevronDown />
+			<div
+				className="nav-user"
+				onMouseEnter={() => setShowDropdown(true)}
+				onMouseLeave={() => setShowDropdown(false)}
+			>
+				<div className="nav-user-info">
+					<FaRegUserCircle />
+					{loggedIn && (
+						<span>
+							{!auth?.user?.photo?.Location && auth?.user?.name}{" "}
+							{auth?.user?.photo?.Location && (
+								<Avatar
+									src={`${auth?.user.photo?.Location}`}
+									shape="round"
+								/>
+							)}
+						</span>
+					)}
+
+					<BiChevronDown />
 				</div>
 				{showDropdown && (
 					<ul className="nav-dropdown">
 						<li
 							onClick={() => {
-								toggleShowDropdown();
 								navigate("/dashboard");
 							}}
 						>
@@ -61,7 +73,6 @@ const MainNav = () => {
 						</li>
 						<li
 							onClick={() => {
-								toggleShowDropdown();
 								navigate("/ad/create");
 							}}
 						>
@@ -69,7 +80,6 @@ const MainNav = () => {
 						</li>
 						<li
 							onClick={() => {
-								toggleShowDropdown();
 								navigate("/user/profile");
 							}}
 						>
@@ -77,7 +87,6 @@ const MainNav = () => {
 						</li>
 						<li
 							onClick={() => {
-								toggleShowDropdown();
 								navigate("/user/setting");
 							}}
 						>

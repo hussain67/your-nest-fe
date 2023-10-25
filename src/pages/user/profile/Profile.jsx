@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProfileImageUpload from "../../../components/forms/ProfileImageUpload";
 import { useAuthContext } from "../../../context/authContext";
 import "../../../components/forms/form.scss";
@@ -8,30 +8,30 @@ const Profile = () => {
 	const { auth } = useAuthContext();
 
 	const [profile, setProfile] = useState({
-		username: "",
-		name: "",
-		email: "",
-		company: "",
-		address: "",
-		phone: "",
-		about: "",
-		photo: ""
+		username: auth?.user.username,
+		name: auth?.user.name,
+		email: auth?.user.email,
+		company: auth.user.company,
+		address: auth.user.address,
+		phone: auth.user.phone,
+		about: auth.user.about,
+		photo: auth.user.photo
 	});
 	const [uploading, setUploading] = useState(false);
-	useEffect(() => {
-		if (auth.user) {
-			setProfile({
-				username: auth?.user.username,
-				name: auth?.user.name,
-				email: auth?.user.email,
-				company: auth.user.company,
-				address: auth.user.address,
-				phone: auth.user.phone,
-				about: auth.user.about,
-				photo: auth.user.photo
-			});
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (auth.user) {
+	// 		setProfile({
+	// 			username: auth?.user.username,
+	// 			name: auth?.user.name,
+	// 			email: auth?.user.email,
+	// 			company: auth.user.company,
+	// 			address: auth.user.address,
+	// 			phone: auth.user.phone,
+	// 			about: auth.user.about,
+	// 			photo: auth.user.photo
+	// 		});
+	// 	}
+	// }, []);
 	const handleChange = e => {
 		const { name, value } = e.target;
 		setProfile({
@@ -53,7 +53,7 @@ const Profile = () => {
 		console.log(resp);
 	};
 	return (
-		<section className="user-info">
+		<section className="user-info page-section">
 			<h1 style={{ textAlign: "center" }}>Profile</h1>
 			<form
 				onSubmit={handleSubmit}

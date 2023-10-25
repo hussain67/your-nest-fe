@@ -27,7 +27,8 @@ const ContactForm = ({ ad }) => {
 		setLoading(true);
 		try {
 			const info = { name, email, phone, message, adId: ad._id };
-			const data = await contactSeller(info);
+			await contactSeller(info);
+			setLoading(false);
 		} catch (error) {}
 	};
 
@@ -88,7 +89,6 @@ const ContactForm = ({ ad }) => {
 					data-cy=""
 				>
 					{loggedIn ? (loading ? "Please wait..." : "Send enquiry") : "Login to send enquiry"}
-					{}
 				</button>
 			</form>
 		</article>

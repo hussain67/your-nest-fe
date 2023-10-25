@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
 		}
 	}, []);
 
-	axios.defaults.baseURL = "http://localhost:8000/api/v1";
+	axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
 	axios.defaults.headers.common["Authorization"] = auth?.token;
 	axios.defaults.headers.common["refresh_token"] = auth?.refreshToken;
 	axios.interceptors.response.use(

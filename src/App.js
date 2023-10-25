@@ -55,6 +55,7 @@ function App() {
 						element={<PrivateRoute />}
 					>
 						<Route
+							index
 							path="dashboard"
 							element={<Dashboard />}
 						/>
@@ -97,7 +98,7 @@ function App() {
 						element={<AdEdit />}
 					/>
 				</Routes>
-				{/* <SiteFooter /> */}
+				{<SiteFooter />}
 			</AuthProvider>
 			<ToastContainer
 				position="top-center"

@@ -3,8 +3,7 @@ import "./siteFooter.scss";
 const SiteFooter = () => {
 	return (
 		<div className="site-footer">
-			<h4>Your-nest - Buy Sell or Rent Properties</h4>
-			<p>&copy; {new Date().getFullYear()} All wright reserved</p>
+			<p> Your-nest &copy; {new Date().getFullYear()} All right reserved</p>
 		</div>
 	);
 };

@@ -11,8 +11,8 @@ const AdCard = ({ ad }) => {
 		<Link to={`/ad/${ad.slug}`}>
 			<div className="card">
 				<img
-					src={ad.photos[0].Location}
-					alt={ad.price}
+					src={ad.photos[0]?.Location}
+					alt={ad?.price}
 				/>
 				<div className="card-body">
 					<h3>£ {formatNumber(ad.price)}</h3>

@@ -14,6 +14,7 @@ const AccountActivate = () => {
 		const callregister = async () => {
 			if (token) {
 				const response = await register(token);
+				console.log(response);
 				setAuth(response);
 				localStorage.setItem("auth", JSON.stringify(response));
 			}

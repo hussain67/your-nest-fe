@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./adView.scss";
-import { Link, useParams } from "react-router-dom";
-import { getAd } from "../../utils/api/adApi";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { deleteAd, getAd, removeImage } from "../../utils/api/adApi";
 import MapCard from "../../components/cards/MapCard";
 import ContactForm from "../../components/forms/ContactForm";
 import Carousal from "../../components/carousal/Carousal";
@@ -9,13 +9,12 @@ import AdInfoCard from "../../components/cards/AdInfoCard";
 import { useAuthContext } from "../../context/authContext";
 
 const AdView = () => {
+	const navigate = useNavigate();
 	const { auth } = useAuthContext();
 	const { slug } = useParams();
 	const [ad, setAd] = useState();
 	const isAdvertiser = ad?.postedBy?._id === auth.user?._id;
 
-	// console.log(auth.user._id);
-	// console.log(ad.postedBy._id);
 	useEffect(() => {
 		const fetchAd = async () => {
 			try {
@@ -24,11 +23,16 @@ const AdView = () => {
 			} catch (err) {}
 		};
 		fetchAd();
-	}, [slug]);
+	}, []);
 
 	const photos = ad?.photos.map(el => {
 		return el.Location;
 	});
+	const handleDelete = async () => {
+		await deleteAd(ad._id);
+		await ad.photos?.map(photo => removeImage(photo));
+		navigate("/");
+	};
 
 	return (
 		<article className="ad-view">
@@ -36,14 +40,20 @@ const AdView = () => {
 			<div className="page-section">
 				<div className="info">
 					<div className="info-main">
-						<p>{ad && <AdInfoCard ad={ad} />}</p>
+						<section>{ad && <AdInfoCard ad={ad} />}</section>
 						<p>
 							{isAdvertiser ? (
 								<div className="info-update">
 									<button className="btn">
 										<Link to={`/user/ad/${slug}`}>Edit Ad</Link>
 									</button>{" "}
-									<button className="btn info-btn-delete"> Delete Ad</button>
+									<button
+										className="btn info-btn-delete"
+										onClick={handleDelete}
+									>
+										{" "}
+										Delete Ad
+									</button>
 								</div>
 							) : (
 								""

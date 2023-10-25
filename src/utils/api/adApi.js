@@ -6,7 +6,7 @@ export const uploadImage = async uri => {
 		const { data } = await axios.post("/ad/upload-image", {
 			image: uri
 		});
-		//console.log(data);
+
 		return data;
 	} catch (error) {}
 };
@@ -24,7 +24,6 @@ export const removeImage = async photo => {
 export const createAd = async ad => {
 	try {
 		const { data } = await axios.post("/ad/create-ad", ad);
-		//console.log(data);
 		if (data?.error) {
 			toast.error(data.error);
 		} else {
@@ -38,7 +37,21 @@ export const createAd = async ad => {
 export const updateAd = async ad => {
 	try {
 		const { data } = await axios.put(`/ad/update-ad/${ad._id}`, ad);
-		console.log(data);
+
+		if (data?.error) {
+			toast.error(data.error);
+		} else {
+			toast.success("Success");
+		}
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+export const deleteAd = async id => {
+	try {
+		const { data } = await axios.delete(`/ad/delete-ad/${id}`);
+
 		if (data?.error) {
 			toast.error(data.error);
 		} else {

@@ -73,11 +73,11 @@ const ImageUpload = ({ ad, setAd }) => {
 			{ad.photos?.map(photo => {
 				return (
 					<Avatar
-						src={`${photo.Location}`}
+						src={`${photo?.Location}`}
 						gap={10}
 						shape="square"
 						onClick={() => handleDelete(photo)}
-						key={photo.Key}
+						key={photo?.Key}
 					/>
 				);
 			})}

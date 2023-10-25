@@ -86,7 +86,7 @@ const AdForm = ({ action, type }) => {
 	};
 	return (
 		<form
-			className="form"
+			className=" form page-section"
 			onSubmit={handleSubmit}
 		>
 			{errorMsg && <div className="error-msg form-control">Please fill all the fields properly</div>}

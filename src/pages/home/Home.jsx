@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import AdCard from "../../components/cards/AdCard";
 import { getAds } from "../../utils/api/adApi";
-//import { useAuthContext } from "../../context/authContext";
 import "./home.scss";
 
 const Home = () => {
-	// const { auth } = useAuthContext();
-	// console.log(auth);
 	const [sellAds, setSellAds] = useState([]);
 	const [rentAds, setRentAds] = useState([]);
-	// console.log(sellAds);
-	// console.log(rentAds);
+
 	useEffect(() => {
 		const fetchAds = async () => {
 			try {
