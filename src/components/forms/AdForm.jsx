@@ -78,8 +78,7 @@ const AdForm = ({ action, type }) => {
 
 		setAd({ ...ad, loading: true });
 		try {
-			const data = await createAd(ad);
-			console.log(data);
+			await createAd(ad);
 			navigate("/");
 		} catch (eror) {}
 		setAd({ ...ad, loading: false });

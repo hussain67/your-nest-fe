@@ -4,7 +4,7 @@ import validator from "validator";
 import "./forgotPassword.scss";
 import { forgotPassword } from "../../../utils/api/authApi";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
 	const [email, setEmail] = useState("");

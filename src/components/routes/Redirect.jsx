@@ -12,7 +12,7 @@ const Redirect = () => {
 		}, 1000);
 		count === 0 && navigate("/account/login-register");
 		return () => clearInterval(interval);
-	}, [count]);
+	}, [count, navigate]);
 
 	return (
 		<div className="redirect">

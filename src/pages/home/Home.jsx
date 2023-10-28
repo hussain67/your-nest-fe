@@ -11,8 +11,8 @@ const Home = () => {
 		const fetchAds = async () => {
 			try {
 				const resp = await getAds();
-				setSellAds(resp.sellAds);
-				setRentAds(resp.rentAds);
+				setSellAds(resp?.sellAds);
+				setRentAds(resp?.rentAds);
 			} catch (error) {
 				console.log(error);
 			}

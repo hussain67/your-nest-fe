@@ -20,7 +20,7 @@ const ContactForm = ({ ad }) => {
 			setEmail(auth.user.email);
 			setPhone(auth.user.phone);
 		}
-	}, [loggedIn]);
+	}, [loggedIn, auth.user.name, auth.user.email, auth.user.phone]);
 
 	const handleSubmit = async e => {
 		e.preventDefault();

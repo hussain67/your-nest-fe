@@ -10,7 +10,7 @@ const ImageUpload = ({ ad, setAd }) => {
 			if (files?.length) {
 				setAd({ ...ad, uploading: true });
 				files.map(file => {
-					new Promise((resolve, reject) => {
+					return new Promise((resolve, reject) => {
 						Resizer.imageFileResizer(
 							file,
 							1080,

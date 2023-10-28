@@ -33,7 +33,7 @@ export const logIn = async (email, password) => {
 			return data;
 		}
 		toast.success(`Welcome ${data.user.name}`);
-		console.log(data);
+
 		return data;
 	} catch (error) {}
 };
