@@ -66,6 +66,7 @@ export const deleteAd = async id => {
 export const getAds = async () => {
 	try {
 		const { data } = await axios.get("/ad/get-ads");
+		console.log(data);
 		return data;
 	} catch (error) {}
 };
