@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AdCard from "../../../components/cards/AdCard";
 import { useAuthContext } from "../../../context/authContext";
 import { userAds } from "../../../utils/api/adApi";
-//import Sidebar from "../../../components/nav/Sidebar";
+
 import "./dashboard.scss";
 const Dashboard = () => {
 	const { auth } = useAuthContext();
@@ -15,18 +15,19 @@ const Dashboard = () => {
 	const handlePageLoading = () => {
 		setPage(page + 1);
 	};
+
 	useEffect(() => {
 		const fetchAds = async () => {
 			setLoading(true);
 			const resp = await userAds(page);
-			const allAds = [...ads, ...resp.ads];
+			const allAds = [...resp.ads];
 			setTotal(resp.total);
 			setAds(allAds);
 			setLoading(false);
 		};
 		fetchAds();
-	}, [page, ads]);
-	console.log(ads);
+	}, [page]);
+
 	return (
 		<>
 			<article className="page-section dashboard">
