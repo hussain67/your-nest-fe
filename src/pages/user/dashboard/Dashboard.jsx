@@ -25,8 +25,8 @@ const Dashboard = () => {
 			setLoading(false);
 		};
 		fetchAds();
-	}, [page]);
-
+	}, [page, ads]);
+	console.log(ads);
 	return (
 		<>
 			<article className="page-section dashboard">

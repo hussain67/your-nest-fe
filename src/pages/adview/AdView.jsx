@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./adView.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteAd, getAd, removeImage } from "../../utils/api/adApi";
@@ -15,15 +15,20 @@ const AdView = () => {
 	const [ad, setAd] = useState();
 	const isAdvertiser = ad?.postedBy?._id === auth.user?._id;
 
-	useEffect(() => {
-		const fetchAd = async () => {
+	const fetchAd = useCallback(
+		async function () {
 			try {
 				const { ad } = await getAd(slug);
 				setAd(ad[0]);
 			} catch (err) {}
-		};
+		},
+		[slug]
+	);
+
+	console.log(ad);
+	useEffect(() => {
 		fetchAd();
-	}, []);
+	}, [fetchAd]);
 
 	const photos = ad?.photos.map(el => {
 		return el.Location;
@@ -41,7 +46,7 @@ const AdView = () => {
 				<div className="info">
 					<div className="info-main">
 						<section>{ad && <AdInfoCard ad={ad} />}</section>
-						<p>
+						<div>
 							{isAdvertiser ? (
 								<div className="info-update">
 									<button className="btn">
@@ -58,12 +63,11 @@ const AdView = () => {
 							) : (
 								""
 							)}
-						</p>
+						</div>
 					</div>
 					<div>{<MapCard ad={ad} />}</div>
 				</div>
 			</div>
-
 			<div className="page-section">{<ContactForm ad={ad} />}</div>
 		</article>
 	);
