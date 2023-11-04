@@ -22,6 +22,7 @@ const Home = () => {
 	return (
 		<main className="home">
 			<section className="page-section">
+				<h2>This is an example app for my protfolio, All contents are only for demo purpose, It is not an actual commercial site. </h2>
 				<h1 className="action">For Sell</h1>
 				<article className="card-container">
 					{sellAds?.map(ad => {

@@ -28,6 +28,8 @@ export const register = async token => {
 export const logIn = async (email, password) => {
 	try {
 		const { data } = await axios.post(`/auth/login`, { email, password });
+		console.log(data);
+		console.log(data?.error);
 		if (data.error) {
 			toast.error(data.error);
 			return data;
