@@ -12,7 +12,7 @@ import { getStorage } from "firebase/storage";
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-	apiKey: "AIzaSyC9hWNL-kDUrCkjBBuDjpDhiquz7wRtFT0",
+	apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
 	authDomain: "your-nest-app.firebaseapp.com",
 	projectId: "your-nest-app",
 	storageBucket: "your-nest-app.appspot.com",
