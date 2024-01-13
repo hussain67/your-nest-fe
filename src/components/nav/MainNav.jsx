@@ -4,21 +4,16 @@ import { useAuthContext } from "../../context/authContext";
 import "./mainNav.scss";
 import { BiChevronDown } from "react-icons/bi";
 import { FaRegUserCircle } from "react-icons/fa";
-import Avatar from "antd/es/avatar/avatar";
+import { signOutUser } from "../../utils/firebase/firebaseAuth";
 
 const MainNav = () => {
-	const { auth, setAuth } = useAuthContext();
+	const { auth } = useAuthContext();
 	const navigate = useNavigate();
 	const loggedIn = auth?.user !== null;
 
 	const [showDropdown, setShowDropdown] = useState(false);
 	const logout = () => {
-		setAuth({
-			user: null,
-			token: "",
-			refreshToken: ""
-		});
-		localStorage.removeItem("auth");
+		signOutUser();
 	};
 	return (
 		<nav className="nav">
@@ -29,13 +24,13 @@ const MainNav = () => {
 				Home
 			</NavLink>
 
-			{auth?.user ? (
+			{auth ? (
 				<NavLink to="/">
 					<span onClick={logout}> Log out</span>
 				</NavLink>
 			) : (
 				<NavLink
-					to="/account/login-register"
+					to="/account/login"
 					data-cy="mainnav-login-link"
 				>
 					Login/Register
@@ -48,17 +43,7 @@ const MainNav = () => {
 			>
 				<div className="nav-user-info">
 					<FaRegUserCircle />
-					{loggedIn && (
-						<span>
-							{!auth?.user?.photo?.Location && auth?.user?.name}{" "}
-							{auth?.user?.photo?.Location && (
-								<Avatar
-									src={`${auth?.user.photo?.Location}`}
-									shape="round"
-								/>
-							)}
-						</span>
-					)}
+					{loggedIn && <span>{auth?.displayName}</span>}
 
 					<BiChevronDown />
 				</div>
@@ -66,7 +51,7 @@ const MainNav = () => {
 					<ul className="nav-dropdown">
 						<li
 							onClick={() => {
-								navigate("/dashboard");
+								navigate("user/dashboard");
 							}}
 						>
 							Dashboard
@@ -84,13 +69,6 @@ const MainNav = () => {
 							}}
 						>
 							Profile
-						</li>
-						<li
-							onClick={() => {
-								navigate("/user/setting");
-							}}
-						>
-							Settings
 						</li>
 					</ul>
 				)}

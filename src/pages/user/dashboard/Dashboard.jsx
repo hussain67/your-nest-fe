@@ -1,65 +1,42 @@
-import React, { useEffect, useState } from "react";
-import AdCard from "../../../components/cards/AdCard";
-import { useAuthContext } from "../../../context/authContext";
-import { userAds } from "../../../utils/api/adApi";
-
+import { useEffect } from "react";
 import "./dashboard.scss";
-const Dashboard = () => {
+import { useState } from "react";
+import { getAllDocuments } from "../../../utils/firebase/firebaseAd";
+import { toast } from "react-toastify";
+import Spinner from "../../../components/spinner/Spinner";
+import Advertisements from "../../../components/advertisements/Advertisements";
+import { useAuthContext } from "../../../context/authContext";
+function Dashboard() {
 	const { auth } = useAuthContext();
-	const user = auth.user?.role?.includes("Seller");
-	const [ads, setAds] = useState([]);
-	const [total, setTotal] = useState();
-	const [page, setPage] = useState(1);
 	const [loading, setLoading] = useState(false);
-
-	const handlePageLoading = () => {
-		setPage(page + 1);
-	};
-
+	const [ads, setAds] = useState([]);
 	useEffect(() => {
+		setLoading(true);
 		const fetchAds = async () => {
-			setLoading(true);
-			const resp = await userAds(page);
-			const allAds = [...resp.ads];
-			setTotal(resp.total);
-			setAds(allAds);
+			try {
+				const ads = await getAllDocuments(auth.uid);
+				setAds(ads);
+				console.log(ads);
+			} catch (error) {
+				toast.error("something went wrong try again ");
+			}
 			setLoading(false);
 		};
 		fetchAds();
-	}, [page]);
-
+	}, [auth.uid]);
+	if (loading) {
+		return <Spinner />;
+	}
 	return (
-		<>
-			<article className="page-section dashboard">
-				{user ? (
-					<div className="dashboard-seller">
-						<h1>
-							Hi {auth?.user.name}, you have {total} advertisement.
-						</h1>
-						<div className="card-container">
-							{ads?.map(ad => {
-								return (
-									<AdCard
-										ad={ad}
-										key={ad._id}
-									/>
-								);
-							})}
-						</div>
-					</div>
-				) : (
-					<div className="dashboard-byer">
-						<h1>Hi {auth?.user?.name}, welcome to Your-nest</h1>
-					</div>
-				)}
-				{ads.length < total && (
-					<div className="load-more">
-						<button onClick={handlePageLoading}>{loading ? "Loading" : "Load more"}</button>
-					</div>
-				)}
-			</article>{" "}
-		</>
+		<div className="page-section">
+			{
+				<Advertisements
+					ads={ads}
+					type="all"
+				/>
+			}
+		</div>
 	);
-};
+}
 
 export default Dashboard;

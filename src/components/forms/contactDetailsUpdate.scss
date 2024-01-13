@@ -1,0 +1,37 @@
+.update {
+	display: flex;
+	justify-content: space-around;
+	padding: 15px;
+	background-color: rgb(238, 238, 221);
+}
+.update span {
+	display: block;
+}
+.update-btn-container {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.btn-edit {
+	cursor: pointer;
+	border: 2px solid green;
+	border-radius: 5px;
+	padding: 4px 10px;
+}
+.btn-update {
+	cursor: pointer;
+	border: 2px solid green;
+	border-radius: 5px;
+	padding: 4px;
+}
+.btn-cancel {
+	cursor: pointer;
+	border: 2px solid red;
+	border-radius: 5px;
+	padding: 4px;
+}
+
+// .color {
+// 	background-color: rgb(155, 209, 193);
+// }

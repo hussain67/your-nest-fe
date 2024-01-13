@@ -1,9 +1,7 @@
 .login-register {
-	//height: calc(100vh - 104px);
 	height: 100vh;
 	display: grid;
 	place-content: center;
-	margin-top: -10%;
 
 	&-form {
 		width: 360px;
@@ -72,7 +70,7 @@
 	place-content: center;
 
 	&-text {
-		background-color: rgb(130, 182, 130);
+		background-color: rgb(170, 60, 67);
 		border-radius: 5px;
 		color: #fff;
 		padding: 10px;

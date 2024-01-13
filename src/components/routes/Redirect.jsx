@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "./redirect.scss";
 
 const Redirect = () => {
-	const [count, setCount] = useState(5);
+	const [count, setCount] = useState(3);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCount(currentCount => --currentCount);
 		}, 1000);
-		count === 0 && navigate("/account/login-register");
+		count === 0 && navigate("/account/login");
 		return () => clearInterval(interval);
 	}, [count, navigate]);
 

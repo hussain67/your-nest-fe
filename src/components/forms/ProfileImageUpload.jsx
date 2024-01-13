@@ -2,10 +2,8 @@ import Resizer from "react-image-file-resizer";
 import { removeImage, uploadImage } from "../../utils/api/adApi";
 import Avatar from "antd/es/avatar/avatar";
 import "./imageUpload.scss";
-//import { useAuthContext } from "../../context/authContext";
 
 const ProfileImageUpload = ({ photo, setPhoto, uploading, setUploading }) => {
-	//const { auth, setAuth } = useAuthContext();
 	const handleUpload = async e => {
 		try {
 			let file = e.target.files[0];

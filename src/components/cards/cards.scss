@@ -1,4 +1,6 @@
 .card {
+	display: grid;
+	grid-template-rows: auto 1fr;
 	min-width: 250px;
 
 	margin-left: 40px;

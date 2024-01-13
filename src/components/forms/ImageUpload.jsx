@@ -1,88 +1,55 @@
-import Resizer from "react-image-file-resizer";
-import { removeImage, uploadImage } from "../../utils/api/adApi";
-import Avatar from "antd/es/avatar/avatar";
+import { Avatar } from "antd";
+import { useState } from "react";
 import "./imageUpload.scss";
-const ImageUpload = ({ ad, setAd }) => {
-	const handleUpload = async e => {
-		try {
-			let files = e.target.files;
-			files = [...files];
-			if (files?.length) {
-				setAd({ ...ad, uploading: true });
-				files.map(file => {
-					return new Promise((resolve, reject) => {
-						Resizer.imageFileResizer(
-							file,
-							1080,
-							720,
-							"JPEG",
-							100,
-							0,
-							async uri => {
-								try {
-									const resp = await uploadImage(uri);
-									//console.log(resp);
-									setAd(ad => ({
-										...ad,
-										photos: [resp, ...ad.photos],
-										uploading: false
-									}));
-								} catch (error) {
-									setAd({ ...ad, uploading: false });
-								}
-							},
-							"base64"
-						);
-					});
-				});
-			}
-		} catch (error) {
-			setAd({ ...ad, uploading: false });
-		}
+function ImageUpload({ ad, setAd, action, images, setImages }) {
+	const [imageUrls, setImageUrls] = useState([]);
+
+	const handleSelectedImages = e => {
+		const selectedImages = e.target.files;
+
+		const selectedImageUrls = [...selectedImages].map(image => {
+			return URL.createObjectURL(image);
+		});
+		setImageUrls([...imageUrls, ...selectedImageUrls]);
+
+		setImages(images => {
+			return [...images, ...selectedImages];
+		});
 	};
 
-	const handleDelete = async photo => {
-		try {
-			setAd({ ...ad, uploading: true });
-			window.confirm("Do you want to delete the image");
-			const data = await removeImage(photo);
-			if (data.ok) {
-				const photos = ad.photos.filter(item => item.Key !== photo.Key);
-				setAd({ ...ad, photos, uploading: false });
-			}
-			console.log(data);
-		} catch (error) {
-			setAd({ ...ad, uploading: false });
-		}
+	const removePhoto = file => {
+		const urls = imageUrls.filter(img => img !== file);
+		setImageUrls(urls);
 	};
 
 	return (
 		<div className="image-upload">
-			<label data-cy="image-upload">
-				{ad.uploading ? "Processing..." : "Upload photos"}
-
+			<label className="btn">
+				Select photos
 				<input
-					onChange={handleUpload}
 					type="file"
-					accept="image/*"
+					id="avatar"
+					onChange={handleSelectedImages}
+					accept=".jpg,.png,.jpeg"
 					multiple
 					hidden
-					data-cy="image-upload-input"
 				/>
 			</label>
-			{ad.photos?.map(photo => {
-				return (
+
+			<div>
+				{imageUrls?.map((file, index) => (
 					<Avatar
-						src={`${photo?.Location}`}
-						gap={10}
+						key={index}
+						src={file}
 						shape="square"
-						onClick={() => handleDelete(photo)}
-						key={photo?.Key}
+						size="46"
+						className="avatar"
+						onClick={() => removePhoto(file)}
 					/>
-				);
-			})}
+				))}
+			</div>
 		</div>
 	);
-};
+}
 
 export default ImageUpload;

@@ -1,50 +1,69 @@
 import React, { useEffect, useState } from "react";
-import AdCard from "../../components/cards/AdCard";
-import { getAds } from "../../utils/api/adApi";
 import "./home.scss";
+import { getDocuments } from "../../utils/firebase/firebaseAd";
+import Advertisements from "../../components/advertisements/Advertisements";
+import Spinner from "../../components/spinner/Spinner";
 
 const Home = () => {
-	const [sellAds, setSellAds] = useState([]);
-	const [rentAds, setRentAds] = useState([]);
+	const [adHouseSell, setAdHouseSell] = useState([]);
+	const [adHouseRent, setAdHouseRent] = useState([]);
+	const [adLandSell, setAdLandSell] = useState([]);
+	const [adLandRent, setAdLandRent] = useState([]);
+	const [loading, setLoading] = useState(false);
 
+	// Fetch Add Data
 	useEffect(() => {
+		setLoading(true);
 		const fetchAds = async () => {
 			try {
-				const resp = await getAds();
-				setSellAds(resp?.sellAds);
-				setRentAds(resp?.rentAds);
+				//House Sell Ad
+				const houseSell = await getDocuments("house", "sell", 3);
+				setAdHouseSell(houseSell.listings);
+
+				// House rent Ad
+				const houseRent = await getDocuments("house", "rent", 3);
+				setAdHouseRent(houseRent.listings);
+
+				// Land Sell Ad
+				const landSell = await getDocuments("land", "sell", 3);
+				setAdLandSell(landSell.listings);
+
+				// Land Sell Ad
+				const landRent = await getDocuments("land", "rent", 3);
+				setAdLandRent(landRent.listings);
 			} catch (error) {
 				console.log(error);
 			}
+			setLoading(false);
 		};
 		fetchAds();
 	}, []);
+	if (loading) {
+		return <Spinner size="" />;
+	}
 	return (
 		<main className="home">
 			<section className="page-section">
-				<h2>This is an example app for my protfolio, All contents are only for demo purpose, It is not an actual commercial site. </h2>
-				<h1 className="action">For Sell</h1>
-				<article className="card-container">
-					{sellAds?.map(ad => {
-						return (
-							<AdCard
-								ad={ad}
-								key={ad._id}
-							/>
-						);
-					})}
-				</article>
-				<h1 className="action">For Rent</h1>
-				<article className="card-container">
-					{rentAds?.map(ad => {
-						return (
-							<AdCard
-								ad={ad}
-								key={ad._id}
-							/>
-						);
-					})}
-				</article>
+				<Advertisements
+					ads={adHouseRent}
+					type="house"
+					action="rent"
+				/>
+				<Advertisements
+					ads={adHouseSell}
+					type="house"
+					action="sell"
+				/>
+				<Advertisements
+					ads={adLandRent}
+					type="land"
+					action="rent"
+				/>
+				<Advertisements
+					ads={adLandSell}
+					type="land"
+					action="sell"
+				/>
 			</section>
 		</main>
 	);

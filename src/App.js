@@ -7,98 +7,92 @@ import SiteFooter from "./components/nav/SiteFooter";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import { AuthProvider } from "./context/authContext";
 import AdView from "./pages/adview/AdView";
-import AccessAccount from "./pages/auth/access/AccessAccount";
-import AccountActivate from "./pages/auth/activate/AccountActivate";
-import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
-import LoginRegister from "./pages/auth/login-register/LoginRegister";
+import Login from "./pages/auth/login-register/Login";
+import Register from "./pages/auth/login-register/Register";
 import Home from "./pages/home/Home";
 import AdCreate from "./pages/user/ad/AdCreate";
 import AdEdit from "./pages/user/ad/AdEdit";
-import RentHouse from "./pages/user/ad/RentHouse";
-import RentLand from "./pages/user/ad/RentLand";
-import SellHouse from "./pages/user/ad/SellHouse";
-import SellLand from "./pages/user/ad/SellLand";
+import AdForm from "./components/forms/AdForm";
+import Category from "./pages/category/Category";
+import Profile from "./pages/auth/profile/Profile";
+import ForgotPassword from "./pages/auth/reset-password/ForgotPassword";
+import ResetPassword from "./pages/auth/reset-password/ResetPassword";
+import AppLayout from "./components/layout/AppLayout";
 import Dashboard from "./pages/user/dashboard/Dashboard";
-import Profile from "./pages/user/profile/Profile";
-import Settings from "./pages/user/settings/Settings";
+import { useState } from "react";
+import Info from "./components/info/Info";
 
 function App() {
+	const [info, setInfo] = useState(true);
 	return (
 		<BrowserRouter>
 			<AuthProvider>
-				<MainNav />
-				<Routes>
-					<Route
-						path="/"
-						element={<Home />}
+				<AppLayout>
+					<MainNav />
+					<Info
+						info={info}
+						setInfo={setInfo}
 					/>
+					<Routes>
+						<Route
+							path="/"
+							element={<Home />}
+						/>
+						<Route
+							path="/account/login"
+							element={<Login />}
+						/>
+						<Route
+							path="/account/register"
+							element={<Register />}
+						/>
+						<Route
+							path="account/forgot-password"
+							element={<ForgotPassword />}
+						/>
+						<Route
+							path="/account/reset-password"
+							element={<ResetPassword />}
+						/>
+						<Route
+							path="/category/:type/:action"
+							element={<Category />}
+						/>
+						<Route
+							path="/"
+							element={<PrivateRoute />}
+						>
+							<Route
+								path="user/dashboard"
+								element={<Dashboard />}
+							/>
 
-					<Route
-						path="/account/login-register"
-						element={<LoginRegister />}
-					/>
+							<Route
+								path="ad/create"
+								element={<AdCreate />}
+							/>
 
-					<Route
-						path="/auth/account-activate/:token"
-						element={<AccountActivate />}
-					/>
-					<Route
-						path="/auth/forgot-password"
-						element={<ForgotPassword />}
-					/>
-					<Route
-						path="/auth/access-account/:token"
-						element={<AccessAccount />}
-					/>
-					<Route
-						path="/"
-						element={<PrivateRoute />}
-					>
-						<Route
-							index
-							path="dashboard"
-							element={<Dashboard />}
-						/>
-						<Route
-							path="ad/create"
-							element={<AdCreate />}
-						/>
-						<Route
-							path="ad/create/sell/house"
-							element={<SellHouse />}
-						/>
-						<Route
-							path="ad/create/sell/land"
-							element={<SellLand />}
-						/>
-						<Route
-							path="ad/create/rent/house"
-							element={<RentHouse />}
-						/>
-						<Route
-							path="ad/create/rent/land"
-							element={<RentLand />}
-						/>
-						<Route
-							path="/ad/:slug"
-							element={<AdView />}
-						/>
-						<Route
-							path="user/profile"
-							element={<Profile />}
-						/>
-						<Route
-							path="user/setting"
-							element={<Settings />}
-						/>
-					</Route>
+							<Route
+								path="ad/create/:action/:type"
+								element={<AdForm />}
+							/>
 
-					<Route
-						path="user/ad/:slug"
-						element={<AdEdit />}
-					/>
-				</Routes>
-				{<SiteFooter />}
+							<Route
+								path="/ad/:slug"
+								element={<AdView />}
+							/>
+							<Route
+								path="user/ad/:slug"
+								element={<AdEdit />}
+							/>
+							<Route
+								path="/user/profile"
+								element={<Profile />}
+							/>
+						</Route>
+					</Routes>
+					{<SiteFooter />}
+				</AppLayout>
 			</AuthProvider>
 			<ToastContainer
 				position="top-center"

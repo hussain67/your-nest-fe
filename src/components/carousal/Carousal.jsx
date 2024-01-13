@@ -6,7 +6,7 @@ import "swiper/css/bundle";
 
 const Carousal = ({ photos }) => {
 	SwiperCore.use([Autoplay, Navigation, Pagination]);
-
+	if (photos === []) return "";
 	return (
 		<Swiper
 			slidesPerView={1}

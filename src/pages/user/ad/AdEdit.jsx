@@ -6,9 +6,11 @@ import CurrencyInput from "react-currency-input-field";
 import "../../../components/forms/form.scss";
 
 import { useNavigate, useParams } from "react-router-dom";
-import { updateAd, getAd } from "../../../utils/api/adApi";
-import ImageUpload from "../../../components/forms/ImageUpload";
 import { useAuthContext } from "../../../context/authContext";
+import { getAd, updateAd } from "../../../utils/firebase/firebaseAd";
+import ImageUploadEdit from "../../../components/forms/ImageUploadEdit";
+import { deleteImage } from "../../../utils/firebase/firebaseAd";
+import { storeImage } from "../../../utils/firebase/firebaseAd";
 
 const AdEdit = () => {
 	const { slug } = useParams();
@@ -16,15 +18,21 @@ const AdEdit = () => {
 	const navigate = useNavigate();
 
 	const [ad, setAd] = useState();
+
+	const [imagesFromAd, setImagesFromAd] = useState([]);
+	const [imagesToDelete, setImagesToDelete] = useState([]);
+	const [images, setImages] = useState([]);
+
 	const [errors, setErrors] = useState({});
 	const [errorMsg, setErrorMsg] = useState(false);
 
-	const isAdvertiser = ad?.postedBy?._id === auth.user?._id;
+	const isAdvertiser = ad?.userRef === auth?.uid;
 
 	useEffect(() => {
 		const fetchAd = async () => {
-			const { ad } = await getAd(slug);
-			setAd(ad[0]);
+			const ad = await getAd(slug);
+			setAd(ad);
+			setImagesFromAd(ad?.photos);
 		};
 		fetchAd();
 	}, [slug]);
@@ -57,25 +65,46 @@ const AdEdit = () => {
 		if (ad.description === "") {
 			errors.description = true;
 		}
-		if (ad.photos.length === 0) {
-			errors.photos = true;
-		}
+		// if (ad.photos.length === 0) {
+		// 	errors.photos = true;
+		// }
 
 		setErrors(errors);
 		return Object.keys(errors).length === 0;
 	};
+	let photos = [];
+	const uploadPhoto = async () => {
+		// const images = e.target.files;
+
+		photos = await Promise.all([...images].map(image => storeImage(auth.uid, image))).catch(error => {
+			// setLoading(false);
+			// toast.error("Images not uploaded");
+			return;
+		});
+		// // setAd({ ...ad, photos: [...ad.photos, ...imgUrls] });
+	};
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-
 		if (!isFormValid(ad?.type)) {
 			setErrorMsg(true);
 			return;
 		}
+		imagesToDelete.forEach(async img => {
+			await deleteImage(img);
+		});
+		await uploadPhoto();
+		let geolocation = {};
+		const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${ad.address}&key=${process.env.REACT_APP_GOOGLE_PLACE_KEY}`);
 
+		const data = await response.json();
+		console.log(data);
+		geolocation.lat = data.results[0]?.geometry.location.lat;
+		geolocation.lng = data.results[0]?.geometry.location.lng;
+		console.log(geolocation);
 		setAd({ ...ad, loading: true });
 		try {
-			const data = await updateAd(ad);
+			const data = await updateAd("listings", slug, { ...ad, geolocation, photos: [...ad?.photos, ...photos] });
 			console.log(data);
 			navigate("/");
 		} catch (eror) {}
@@ -88,6 +117,9 @@ const AdEdit = () => {
 				className="form"
 				onSubmit={handleSubmit}
 			>
+				<h1 className="form-title">
+					Edit {ad.action} {ad.type}
+				</h1>
 				{errorMsg && <div className="error-msg form-control">Please fill all the fields properly</div>}
 				<div className={errors?.address ? "error form-control" : "form-control"}>
 					<GooglePlacesAutocomplete
@@ -135,7 +167,7 @@ const AdEdit = () => {
 						}}
 					/>
 				</div>
-				{ad?.type === "House" ? (
+				{ad?.type === "house" ? (
 					<>
 						<div className="form-control">
 							<input
@@ -230,9 +262,16 @@ const AdEdit = () => {
 				</div>
 				<div className="form-control">
 					<div className={errors.photos ? "error" : ""}>
-						<ImageUpload
+						<ImageUploadEdit
 							ad={ad}
 							setAd={setAd}
+							action="update"
+							imagesFromAd={imagesFromAd}
+							setImagesFromAd={setImagesFromAd}
+							imagesToDelete={imagesToDelete}
+							setImagesToDelete={setImagesToDelete}
+							images={images}
+							setImages={setImages}
 						/>
 					</div>
 				</div>

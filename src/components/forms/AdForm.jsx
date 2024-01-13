@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-//import { useAuthContext } from "../../context/authContext";
 import CurrencyInput from "react-currency-input-field";
-import ImageUpload from "./ImageUpload";
 
 import "./form.scss";
-import { createAd } from "../../utils/api/adApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { addDocument, storeImage } from "../../utils/firebase/firebaseAd";
+import ImageUpload from "./ImageUpload";
+import { useAuthContext } from "../../context/authContext";
+import Spinner from "../spinner/Spinner";
 
-const AdForm = ({ action, type }) => {
-	//const { auth, setAuth } = useAuthContext();
+const AdForm = () => {
+	const { auth } = useAuthContext();
 	const navigate = useNavigate();
+	const { action, type } = useParams();
+
 	const initialState = {
-		photos: [],
+		// photos: [],
 		uploading: false,
 		price: "",
 		address: "",
@@ -23,14 +26,15 @@ const AdForm = ({ action, type }) => {
 		landsize: "",
 		title: "",
 		description: "",
-		loading: false,
 		type,
 		action
 	};
 
+	const [images, setImages] = useState([]);
 	const [ad, setAd] = useState(initialState);
 	const [errors, setErrors] = useState({});
 	const [errorMsg, setErrorMsg] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const isFormValid = type => {
 		const errors = {};
@@ -40,7 +44,7 @@ const AdForm = ({ action, type }) => {
 		if (ad.price === "") {
 			errors.price = true;
 		}
-		if (type === "House") {
+		if (type === "house") {
 			if (ad.bedrooms === "") {
 				errors.bedrooms = true;
 			}
@@ -60,12 +64,16 @@ const AdForm = ({ action, type }) => {
 		if (ad.description === "") {
 			errors.description = true;
 		}
-		if (ad.photos.length === 0) {
-			errors.photos = true;
-		}
 
 		setErrors(errors);
 		return Object.keys(errors).length === 0;
+	};
+
+	let photos = [];
+	const uploadPhoto = async () => {
+		photos = await Promise.all([...images].map(image => storeImage(auth.uid, image))).catch(error => {
+			return;
+		});
 	};
 
 	const handleSubmit = async e => {
@@ -75,20 +83,39 @@ const AdForm = ({ action, type }) => {
 			setErrorMsg(true);
 			return;
 		}
+		setLoading(true);
+		await uploadPhoto();
+		let geolocation = {};
+		const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${ad.address}&key=${process.env.REACT_APP_GOOGLE_PLACE_KEY}`);
 
-		setAd({ ...ad, loading: true });
+		const data = await response.json();
+
+		geolocation.lat = data.results[0]?.geometry.location.lat;
+		geolocation.lng = data.results[0]?.geometry.location.lng;
+
+		const adToStore = { ...ad, userRef: auth.uid, geolocation, photos };
+		if (type === "land") {
+			delete adToStore.bedrooms;
+			delete adToStore.bathrooms;
+			delete adToStore.carparks;
+		}
+
 		try {
-			await createAd(ad);
+			await addDocument("listings", adToStore);
+			setLoading(false);
 			navigate("/");
 		} catch (eror) {}
-		setAd({ ...ad, loading: false });
 	};
+	if (loading) return <Spinner />;
 	return (
 		<form
 			className=" form page-section"
 			onSubmit={handleSubmit}
 		>
-			{errorMsg && <div className="error-msg form-control">Please fill all the fields properly</div>}
+			<h1 className="form-title">
+				{action} {type}
+			</h1>
+			<div>{errorMsg && <div className="error-msg form-control">Please fill all the fields properly</div>}</div>
 			<div className={errors?.address ? "error form-control" : "form-control"}>
 				<GooglePlacesAutocomplete
 					apiKey={process.env.REACT_APP_GOOGLE_PLACE_KEY}
@@ -97,10 +124,6 @@ const AdForm = ({ action, type }) => {
 						language: "en"
 					}}
 					autocompletionRequest={{
-						// bounds: [
-						// 	{ lat: 50, lng: 50 },
-						// 	{ lat: 100, lng: 100 }
-						// ],
 						componentRestrictions: {
 							country: ["GB"]
 						}
@@ -112,7 +135,6 @@ const AdForm = ({ action, type }) => {
 
 						onChange: ({ value }) => {
 							setAd({ ...ad, address: value.description });
-							//console.log(value);
 						},
 						onBlur: () => {
 							if (ad.address !== "") {
@@ -135,7 +157,7 @@ const AdForm = ({ action, type }) => {
 					}}
 				/>
 			</div>
-			{type === "House" ? (
+			{type === "house" ? (
 				<>
 					<div className="form-control">
 						<input
@@ -228,22 +250,26 @@ const AdForm = ({ action, type }) => {
 					}}
 				/>
 			</div>
+
 			<div className="form-control">
-				<div className={errors.photos ? "error" : ""}>
+				{
 					<ImageUpload
 						ad={ad}
 						setAd={setAd}
+						action="create"
+						images={images}
+						setImages={setImages}
 					/>
-				</div>
+				}
 			</div>
 
 			<button
 				className="btn btn-form-submit"
 				type="submit"
-				disabled={ad.loading}
+				disabled={loading}
 				data-cy=""
 			>
-				{ad.loading ? "Saving..." : "Submit"}
+				{loading ? "Saving..." : "Submit"}
 			</button>
 		</form>
 	);

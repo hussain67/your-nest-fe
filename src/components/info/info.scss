@@ -1,0 +1,25 @@
+.info-app {
+	display: flex;
+	align-items: center;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: rgba(40, 37, 37, 0.5);
+	h2 {
+		color: white;
+		width: 100%;
+		text-align: center;
+		padding: 15px 8px;
+	}
+	button {
+		display: block;
+		position: absolute;
+		right: 30px;
+		top: 30px;
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
+	}
+}

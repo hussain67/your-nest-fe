@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 const MapCard = ({ ad }) => {
-	const la = ad?.location.coordinates[1];
-	const ln = ad?.location.coordinates[0];
+	const la = ad?.geolocation.lat;
+	const ln = ad?.geolocation.lng;
 
 	const position = [la, ln];
 
