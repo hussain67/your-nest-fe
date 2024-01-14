@@ -33,7 +33,6 @@ const LoginRegister = () => {
 	};
 	const isFormValid = isRegistered => {
 		let errors = {};
-		console.log(errors);
 
 		if (!validator.isEmail(email)) {
 			errors.email = "Valid email is required";

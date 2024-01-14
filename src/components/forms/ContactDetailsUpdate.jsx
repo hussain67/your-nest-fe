@@ -6,8 +6,10 @@ import "../../pages/auth/login-register/loginRegister.scss";
 import "./contactDetailsUpdate.scss";
 import Spinner from "../spinner/Spinner";
 import { updateUserProfile } from "../../utils/firebase/firebaseAuth";
+import { useNavigate } from "react-router-dom";
 
 const ContactDetailsUpdate = ({ setShowElement }) => {
+	const navigate = useNavigate();
 	const user = auth.currentUser;
 
 	const initialInput = {
@@ -45,8 +47,8 @@ const ContactDetailsUpdate = ({ setShowElement }) => {
 		setLoading(true);
 		try {
 			await updateUserProfile({ displayName: name });
-
 			toast.success("Profile updated");
+			navigate("/");
 		} catch (error) {
 			toast.error("Profile not updated");
 		}
