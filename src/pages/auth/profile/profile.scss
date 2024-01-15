@@ -8,7 +8,10 @@
 .btn-profile {
 	background-color: rgb(216, 216, 184);
 	padding: 15px;
-	width: 400px;
+	width: 300px;
 	text-align: center;
 	cursor: pointer;
+	@media screen and (min-width: 400px) {
+		width: 350px;
+	}
 }
